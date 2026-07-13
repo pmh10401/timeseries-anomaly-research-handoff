@@ -1,0 +1,40 @@
+{
+  "a0_lane_errors": [],
+  "a0_summary": {
+    "combined_metric_scope": "human_assisted_diagnostic_only",
+    "hard_alert_precision": 0.8433915211970074,
+    "hard_total_alerts": 2005,
+    "hard_total_fp": 314,
+    "hard_total_tp": 1691,
+    "mean_combined_f1": 0.7007761778434174,
+    "mean_f1_scope": "autonomous_hard_alert",
+    "mean_hard_f1": 0.6007724315633253,
+    "num_datasets": 1117,
+    "priority_review_total_candidates": 9,
+    "priority_review_total_fp": 1,
+    "priority_review_total_tp": 8,
+    "standard_review_total_candidates": 639,
+    "standard_review_total_fp": 347,
+    "standard_review_total_tp": 292
+  },
+  "a0_summary_mismatches": {},
+  "a1_all_match_datasets": 1117,
+  "a1_total_datasets": 1117,
+  "autonomous_metric_scope": "autonomous_hard_alert",
+  "b1_changed_source_datasets": 38,
+  "b1_common_support_datasets": 339,
+  "experiment_id": "experiment_138_policy_train_only_audit",
+  "human_assisted_metric_scope": "human_assisted_diagnostic_only",
+  "input_sha256": {
+    "/Users/minho/Documents/Dataset/experiment_133_block_b_confidence_tiers_results.csv": "8f9e436c432136509107b90a0b19b95974f475120f9da9df2ea4018ac516fddf",
+    "/Users/minho/Documents/Dataset/experiment_135_block_c_review_confirmation_results.csv": "9ecb4c0305e5bb222e876241c0520b36e85268ecefefdd6bd7fc21f225f9106a",
+    "/Users/minho/Documents/Dataset/experiment_137_operational_triage_results.csv": "942e2f5faac41364a0e91fd9dad7c3e45734cd765a080f31d9d149950826735d",
+    "/Users/minho/Documents/Dataset/experiment_137_operational_triage_summary.csv": "ad200be5f2deeffe7ed0205a7e6a67bf7ecc39b7aac06664ae06a7ea435d6e2b",
+    "/Users/minho/Documents/Dataset/experiment_87_exp84_index_diagnostics_results.csv": "78c18458a8a2eae7676ff688f7deac01281270c05bf9d17682b6e7ad388fc0d5",
+    "/Users/minho/Documents/Dataset/experiment_89_74d_with_exp84_candidate_results.csv": "4d7c1a2d7a2b22920c462249cb6e459409165bb20c1d5a0a9e7923d3ea24f2fd",
+    "/Users/minho/Documents/Dataset/experiment_90_zero_f1_repair_selector_results.csv": "1003f347fffc1b57abdec5a90dd72a62f74ba882167c2f5b69565470ac10453d"
+  },
+  "next_gate": "C and D1 require a pre-registered operational alert-budget unit; no budget policy was selected here.",
+  "retrospective_only": true,
+  "scope": "A0 file integrity, A1 final-lane replay, B1 common-support source audit"
+}

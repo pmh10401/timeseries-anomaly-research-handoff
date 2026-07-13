@@ -1,0 +1,9 @@
+metric,count,mean,median,p75,p90,p95,max
+hard_alert_count,1117,1.7949865711727842,1.0,1.0,4.0,7.0,80.0
+hard_fp,1117,0.2811101163831692,0.0,0.0,1.0,1.0,10.0
+hard_f1,1117,0.6007724315633254,1.0,1.0,1.0,1.0,1.0
+standard_review_count,1117,0.5720680393912265,0.0,1.0,1.0,3.0,22.0
+hard_f1_zero_datasets,362,,,,,,
+hard_alert_zero_datasets,229,,,,,,
+hard_fp_zero_datasets,903,,,,,,
+datasets_covering_50pct_hard_fp,57,,,,,,

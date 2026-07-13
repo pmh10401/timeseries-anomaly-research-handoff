@@ -1,0 +1,20 @@
+metric,verified_value,summary_csv_column,summary_value,source_file,source_columns,matches_summary
+num_datasets,1117.0,num_datasets,1117,experiment_137_operational_triage_results.csv,dataset_name / routing flags,True
+hard_alert_count,2005.0,hard_total_alerts,2005,experiment_137_operational_triage_results.csv,computed from *_indices + SQLite instances.label,True
+hard_tp,1691.0,hard_total_tp,1691,experiment_137_operational_triage_results.csv,computed from *_indices + SQLite instances.label,True
+hard_fp,314.0,hard_total_fp,314,experiment_137_operational_triage_results.csv,computed from *_indices + SQLite instances.label,True
+standard_review_count,639.0,standard_review_total_candidates,639,experiment_137_operational_triage_results.csv,computed from *_indices + SQLite instances.label,True
+standard_review_tp,292.0,standard_review_total_tp,292,experiment_137_operational_triage_results.csv,computed from *_indices + SQLite instances.label,True
+standard_review_fp,347.0,standard_review_total_fp,347,experiment_137_operational_triage_results.csv,computed from *_indices + SQLite instances.label,True
+priority_review_count,9.0,priority_review_total_candidates,9,experiment_137_operational_triage_results.csv,computed from *_indices + SQLite instances.label,True
+priority_review_tp,8.0,priority_review_total_tp,8,experiment_137_operational_triage_results.csv,computed from *_indices + SQLite instances.label,True
+priority_review_fp,1.0,priority_review_total_fp,1,experiment_137_operational_triage_results.csv,computed from *_indices + SQLite instances.label,True
+combined_tp,1991.0,,not_aggregated_in_summary,experiment_137_operational_triage_results.csv,computed from *_indices + SQLite instances.label,not_applicable
+combined_fp,662.0,,not_aggregated_in_summary,experiment_137_operational_triage_results.csv,computed from *_indices + SQLite instances.label,not_applicable
+combined_fn,1927.0,,not_aggregated_in_summary,experiment_137_operational_triage_results.csv,computed from *_indices + SQLite instances.label,not_applicable
+hard_alert_precision,0.8433915211970074,hard_alert_precision,0.8433915211970074,experiment_137_operational_triage_results.csv,computed from *_indices + SQLite instances.label,True
+mean_hard_f1,0.6007724315633254,mean_hard_f1,0.6007724315633254,experiment_137_operational_triage_results.csv,computed from *_indices + SQLite instances.label,True
+mean_combined_f1,0.7007761778434174,mean_combined_f1,0.7007761778434174,experiment_137_operational_triage_results.csv,computed from *_indices + SQLite instances.label,True
+routing_uses_test_labels_rows,0.0,routing_uses_test_labels_rows,0,experiment_137_operational_triage_results.csv,dataset_name / routing flags,True
+routing_uses_test_position_rows,0.0,routing_uses_test_position_rows,0,experiment_137_operational_triage_results.csv,dataset_name / routing flags,True
+routing_uses_family_performance_rows,0.0,routing_uses_family_performance_rows,0,experiment_137_operational_triage_results.csv,dataset_name / routing flags,True

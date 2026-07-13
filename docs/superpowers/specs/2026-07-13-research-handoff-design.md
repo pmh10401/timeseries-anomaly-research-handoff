@@ -13,8 +13,8 @@ Create a public, self-contained research handoff repository for the time-series 
 
 ## Repository Layout
 
-- `scripts/`: source experiment and orchestration scripts, kept at their original filenames.
-- `tests/`: available scratch tests, kept at their original filenames.
+- Root `*.py`: source experiment and orchestration scripts, kept at their original paths and filenames.
+- `scratch/`: available scratch tests, kept at their original paths and filenames.
 - `docs/`: original research documents plus this handoff's design and execution plan.
 - `results/`: CSV/JSON/Markdown artifacts suitable for analysis, including Exp137 and policy-budget validation outputs.
 - `artifacts/`: editable figures and the existing Exp137 presentation input package, excluding duplicate archives.

@@ -1,0 +1,21 @@
+flowchart LR
+  DB[SQLite TRAIN normal + TEST values] --> E40[Exp40 ROCKET train-normal scores]
+  DB --> E55[Exp55 Spectrogram + PCA + KNN]
+  DB --> E56[Exp56 texture/RP + PCA + KNN]
+  E40 --> E93[Exp93 candidate reranking]
+  E55 --> E93
+  E56 --> E93
+  E84[Exp84 family_guard source rows] --> E89[Exp89 upstream selector]
+  E89 --> E90[Exp90 repair]
+  E90 --> E93
+  E93 --> E119[Exp119a order validation]
+  DB --> E131[Exp131 cross-confirmation ROCKET]
+  E119 --> E133[Exp133 high/general tiers]
+  E131 --> E133
+  E133 --> E134[Exp134 review candidate]
+  E134 --> E135[Exp135 supplementary confirmation]
+  E133 --> E137[Exp137 operational routing]
+  E135 --> E137
+  E137 --> HA[Automated alert]
+  E137 --> GR[General review]
+  E137 --> PR[Priority review - retrospective]

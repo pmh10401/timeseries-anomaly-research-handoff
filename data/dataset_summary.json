@@ -1,0 +1,1 @@
+[{"dataset_count":1119,"train_normal_samples":170937,"train_anomaly_samples":0,"test_normal_samples":221284,"test_anomaly_samples":4516,"test_total_samples":225800,"min_train_normal_samples":1,"max_train_normal_samples":18378,"min_test_samples":50,"max_test_samples":23400,"distinct_series_lengths":139}]

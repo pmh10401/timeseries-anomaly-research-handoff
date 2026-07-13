@@ -1,0 +1,118 @@
+# Evaluation Contract v2
+
+```json
+{
+  "evaluation_definition": {
+    "combined_f1_scope": "human_assisted_diagnostic_only",
+    "dataset_f1_definition": "per dataset: 2*tp / (2*tp + fp + fn), zero when denominator is zero",
+    "hard_precision_definition": "micro: sum(hard_tp) / (sum(hard_tp) + sum(hard_fp))",
+    "hard_recall_definition": "per dataset: hard_tp / (hard_tp + hard_fn), denominator protected by max(1, denominator)",
+    "mean_hard_f1_definition": "arithmetic mean of per-dataset hard_f1",
+    "no_candidate_rule": "tp=0, fp=0; F1 is 0 unless denominator from fn is nonzero, then 0",
+    "no_true_anomaly_rule": "not separately verified in current 1,117 output; evaluation uses the same denominator safeguards",
+    "point_matching_rule": "primary: exact index equality",
+    "priority_review_scope": "review-only retrospective rule; never autonomous hard alert",
+    "tolerance_matching_rules": [
+      "plus_minus_1 diagnostic",
+      "plus_minus_3 diagnostic",
+      "plus_minus_5 diagnostic"
+    ],
+    "zero_denominator_rules": "precision and recall use max(1, denominator); F1 is 0 when denominator is 0"
+  },
+  "experiment_scope": {
+    "A0_file_integrity": "completed",
+    "A1_selector_replay": "completed; final lane replay only, not full feature/score rerun",
+    "B1_common_support_family_neutral": "completed; 339 shared Exp84 source datasets",
+    "B2_full_coverage_family_neutral": "completed; 1,117/1,117 datasets, zero source errors; retrospective counterfactual only",
+    "C_policy_budget": "blocked pending operational alert-budget decision",
+    "D1_policy_level_train_only": "blocked pending B2 and C",
+    "D2_end_to_end_provenance": "not_started",
+    "D3_prospective_validation": "not_started"
+  },
+  "input_data": {
+    "dataset_count": 1117,
+    "dataset_list_sha256": "3cd3c13f0128f2d85c4d76f94fd102e1bbaa6e931a79a576742e6a42b1f71fe7",
+    "excluded_dataset_reasons": {
+      "CornellWhaleChallenge": "historical full evaluation exclusion; README documents a length-4000 high-frequency audio case",
+      "Wafer_normal_1": "historical full evaluation exclusion; detailed reason not verified in current source/docs"
+    },
+    "excluded_datasets": [
+      "CornellWhaleChallenge",
+      "Wafer_normal_1"
+    ],
+    "input_file_paths": [
+      "/Users/minho/Documents/Dataset/experiment_137_operational_triage_results.csv",
+      "/Users/minho/Documents/timesries project/outputs/exp137_strict_train_only_execution/a1_final_lane_replay.csv",
+      "/Users/minho/Documents/timesries project/outputs/exp137_strict_train_only_execution/b1_full/b1_family_neutral_common_support_results.csv",
+      "/Users/minho/Documents/Dataset/experiment_87_exp84_index_diagnostics_results.csv",
+      "/Users/minho/Documents/Dataset/experiment_133_block_b_confidence_tiers_results.csv",
+      "/Users/minho/Documents/Dataset/experiment_135_block_c_review_confirmation_results.csv"
+    ],
+    "input_sha256": {
+      "/Users/minho/Documents/Dataset/experiment_133_block_b_confidence_tiers_results.csv": "8f9e436c432136509107b90a0b19b95974f475120f9da9df2ea4018ac516fddf",
+      "/Users/minho/Documents/Dataset/experiment_135_block_c_review_confirmation_results.csv": "9ecb4c0305e5bb222e876241c0520b36e85268ecefefdd6bd7fc21f225f9106a",
+      "/Users/minho/Documents/Dataset/experiment_137_operational_triage_results.csv": "942e2f5faac41364a0e91fd9dad7c3e45734cd765a080f31d9d149950826735d",
+      "/Users/minho/Documents/Dataset/experiment_87_exp84_index_diagnostics_results.csv": "78c18458a8a2eae7676ff688f7deac01281270c05bf9d17682b6e7ad388fc0d5",
+      "/Users/minho/Documents/timesries project/outputs/exp137_strict_train_only_execution/a1_final_lane_replay.csv": "2759b0f2f2058463edda33e6f7d34ddea775acaf3c8c95c4560e5ab17602b33e",
+      "/Users/minho/Documents/timesries project/outputs/exp137_strict_train_only_execution/b1_full/b1_family_neutral_common_support_results.csv": "e766eb23652547ac9aa9af13176bee3a9ce4289b174a380c6aaa120ab65df949"
+    }
+  },
+  "interpretation_limits": {
+    "not_deployment_validated": true,
+    "not_end_to_end_strict": true,
+    "not_prospective": true,
+    "retrospective_only": true
+  },
+  "output_paths": [
+    "/Users/minho/Documents/timesries project/outputs/exp137_policy_train_only_validation/01_a1_selector_replay_dataset_diff.csv",
+    "/Users/minho/Documents/timesries project/outputs/exp137_policy_train_only_validation/04_b1_source_level_diff.csv",
+    "/Users/minho/Documents/timesries project/outputs/exp137_policy_train_only_validation/08_exp84_source_coverage.csv"
+  ],
+  "repository_and_code": {
+    "git_branch": "main",
+    "git_commit": "05c471fd650f34ca641944d7524f6484a84f4fb2",
+    "git_status": "## main...origin/main [ahead 5]\n M README.md\n M docs/research_report.md\n M docs/walkthrough.md\n M serve_rank_dashboard.py\n?? .venv-parametric-umap/\n?? dashboardctl.py\n?? docs/anomaly_validation_difficulty_report_20260707.md\n?? docs/archive/\n?? docs/experiment_39_50_results_analysis_20260707.md\n?? docs/experiment_51_full_timeseries_imaging_analysis_20260707.md\n?? docs/experiment_52_imaging_multiscale_fusion_analysis_20260707.md\n?? docs/experiment_53_texture_scaling_analysis_20260707.md\n?? docs/experiment_consistency_audit_20260707.md\n?? docs/experiments/\n?? docs/model_hard_response_research_20260707.md\n?? docs/superpowers/plans/2026-07-09-exp101-exp102-feature-source.md\n?? docs/superpowers/plans/2026-07-09-exp103-higher-dim-review-sources.md\n?? docs/time_series_imaging_research_20260707.md\n?? outputs/\n?? run_all_adaptive_cnn_true_infonce_multi_aug.py\n?? run_balanced_improvement_experiment.py\n?? run_exp137_policy_validation_evidence.py\n?? run_experiment_100_spectral_review_and_guard.py\n?? run_experiment_101_shapelet_normal_prototype.py\n?? run_experiment_102_feature_source_selector.py\n?? run_experiment_103_higher_dim_review_sources.py\n?? run_experiment_104_score_dimensionality_sweep.py\n?? run_experiment_105_score_combination_methods.py\n?? run_experiment_106_gated_score_combo_selector.py\n?? run_experiment_107_exp103_combo_disagreement.py\n?? run_experiment_108_imaging_pretrained_vit_feature_probe.py\n?? run_experiment_109_vit_compression_alternatives.py\n?? run_experiment_110_exp84_score_backend_probe.py\n?? run_experiment_111_vit_fast_compression_probe.py\n?? run_experiment_111b_vit_manifold_compression_probe.py\n?? run_experiment_112_parametric_umap_oof_probe.py\n?? run_experiment_113_train_normal_conformal_fusion.py\n?? run_experiment_114_pseudo_anomaly_score_probe.py\n?? run_experiment_115_local_normal_state_score.py\n?? run_experiment_116_train_only_reliability_reranker.py\n?? run_experiment_117_train_only_candidate_budget.py\n?? run_experiment_118_rocket512_knn3_exp93_source_probe.py\n?? run_experiment_119a_exp93_rank_order_validation.py\n?? run_experiment_119b_rocket256_512_validated_rank_compare.py\n?? run_experiment_120_exp93_reference_rebaseline.py\n?? run_experiment_121_exp95_validated_rank_review.py\n?? run_experiment_122_exp96_validated_rank_workflow.py\n?? run_experiment_123_exp103_validated_rank_review_sources.py\n?? run_experiment_124_exp104_validated_rank_dimensions.py\n?? run_experiment_125_exp105_validated_rank_combinations.py\n?? run_experiment_126_exp106_validated_rank_gated_combo.py\n?? run_experiment_127_exp107_validated_rank_disagreement.py\n?? run_experiment_128_rocket512_only_review_selector.py\n?? run_experiment_129_rocket512_base_selector_rebuild.py\n?? run_experiment_130_rocket512_two_block_knn.py\n?? run_experiment_131_rocket_block_b_calibration.py\n?? run_experiment_132_block_b_review_integration.py\n?? run_experiment_133_block_b_confidence_tiers.py\n?? run_experiment_134_block_b_review_tail_guard.py\n?? run_experiment_135_block_c_review_confirmation.py\n?? run_experiment_136_family_holdout_review_audit.py\n?? run_experiment_138_policy_train_only_audit.py\n?? run_experiment_139_family_neutral_common_support.py\n?? run_experiment_141_family_neutral_full_coverage.py\n?? run_experiment_26_rocket.py\n?? run_experiment_26_rocket_parallel.py\n?? run_experiment_27_rocket_score_variants.py\n?? run_experiment_27a_rocket_top16.py\n?? run_experiment_27b_rocket_top64.py\n?? run_experiment_27c_rocket_knn.py\n?? run_experiment_27d_rocket_iforest.py\n?? run_experiment_27e_rocket_1024_top32.py\n?? run_experiment_27f_rstsf_interval.py\n?? run_experiment_28_minirocket_multirocket_features.py\n?? run_experiment_29_train_normal_threshold_calibration.py\n?? run_experiment_30_knn_threshold_sweep.py\n?? run_experiment_31_knn_operational_budget_sweep.py\n?? run_experiment_32_knn_score_capacity_sweep.py\n?? run_experiment_33_evalset_reconstruction_validation.py\n?? run_experiment_34_balanced_feature_capacity_sweep.py\n?? run_experiment_35_balanced_threshold_policy_sweep.py\n?? run_experiment_35_original_threshold_policy_sweep.py\n?? run_experiment_36_balanced_score_normalization_sweep.py\n?? run_experiment_36_original_score_normalization_sweep.py\n?? run_experiment_37_balanced_bagged_rocket_ensemble.py\n?? run_experiment_37_original_bagged_rocket_ensemble.py\n?? run_experiment_38_balanced_actual_length_handling.py\n?? run_experiment_38_original_actual_length_handling.py\n?? run_experiment_39_balanced_candidate_retest.py\n?? run_experiment_39_original_candidate_retest.py\n?? run_experiment_40_original_score_normalization_sweep.py\n?? run_experiment_41_multi_aug_robust_baseline.py\n?? run_experiment_42_multi_aug_robust_operational.py\n?? run_experiment_43_explanation_space_transforms.py\n?? run_experiment_44_classical_embedding_baselines.py\n?? run_experiment_45_model_hard_diagnostic_harness.py\n?? run_experiment_46_model_hard_interval_drcif_lite.py\n?? run_experiment_47_model_hard_frequency_rocket.py\n?? run_experiment_48_model_hard_shapelet_prototype.py\n?? run_experiment_49_model_hard_anomaly_injection.py\n?? run_experiment_50_model_hard_timeseries_imaging.py\n?? run_experiment_51_full_timeseries_imaging_selector_probe.py\n?? run_experiment_52_imaging_multiscale_fusion_probe.py\n?? run_experiment_53a_imaging_texture_features_probe.py\n?? run_experiment_53b_imaging_train_robust_scaling_probe.py\n?? run_experiment_54_imaging_resolution_pca_sweep.py\n?? run_experiment_55_imaging_scaling_sweep.py\n?? run_experiment_56_imaging_glcm_texture_probe.py\n?? run_experiment_57_imaging_small_cnn_mps_probe.py\n?? run_experiment_58_imaging_pretrained_cnn_feature_probe.py\n?? run_experiment_59_rocket_imaging_selector.py\n?? run_experiment_60_62_rocket_imaging_selector_variants.py\n?? run_experiment_60_selector_fp_guard_variants.py\n?? run_experiment_61_selector_index_agreement.py\n?? run_experiment_62_selector_guarded_index_agreement.py\n?? run_experiment_63_guarded_cap_sweep.py\n?? run_experiment_64_guarded_with_fallback.py\n?? run_experiment_65_confidence_tier_selector.py\n?? run_experiment_66_train_normal_alert_budget.py\n?? run_experiment_67_hard_family_fallback_selector.py\n?? run_experiment_68_final_operational_selector.py\n?? run_experiment_68b_final_operational_fallback_sweep.py\n?? run_experiment_69_operational_train_exceed_calibration.py\n?? run_experiment_69b_no_prediction_fallback_calibration.py\n?? run_experiment_70_zero_mode_family_repair_selector.py\n?? run_experiment_71a_large_data_rocket_fallback.py\n?? run_experiment_71b_large_data_rocket_review_tier.py\n?? run_experiment_72a_large_data_rank_ensemble.py\n?? run_experiment_72b_large_data_source_disagreement.py\n?? run_experiment_73a_large_rank_rocket_guard.py\n?? run_experiment_73b_large_rank_two_model_guard.py\n?? run_experiment_73c_large_rank_budget_guard.py\n?? run_experiment_73d_large_rank_combined_guard.py\n?? run_experiment_74a_large_rank_margin_guard.py\n?? run_experiment_74b_large_rank_family_budget.py\n?? run_experiment_74c_large_rank_margin_family_guard.py\n?? run_experiment_74d_large_rank_review_tier_split.py\n?? run_experiment_75_score_source_diagnostic_harness.py\n?? run_experiment_76_spectral_derivative_rocket_hard_family.py\n?? run_experiment_77_shapelet_prototype_low_train_guard.py\n?? run_experiment_78_robust_density_corrected_score.py\n?? run_experiment_79_vae_epoch_sweep_guarded.py\n?? run_experiment_80_train_only_score_selector.py\n?? run_experiment_81_aeon_multirocket_official_full.py\n?? run_experiment_82_hydra_hard_family_subset.py\n?? run_experiment_83_multirocket_hydra_hard339.py\n?? run_experiment_84_feature_pruning_operational_stability.py\n?? run_experiment_85_exp84_hard_specialist_selector.py\n?? run_experiment_86_train_only_agreement_exp84_selector.py\n?? run_experiment_87_exp84_index_diagnostics.py\n?? run_experiment_88_true_agreement_exp84_selector.py\n?? run_experiment_89_74d_with_exp84_candidate.py\n?? run_experiment_90_zero_f1_repair_selector.py\n?? run_experiment_91_guarded_candidate_union_repair.py\n?? run_experiment_92_operational_hybrid_selector.py\n?? run_experiment_93_nonpos_candidate_reranker.py\n?? run_experiment_94_nonpos_rank_consensus_v2.py\n?? run_experiment_94b_corrected_nonpos_rank_consensus.py\n?? run_experiment_95_topk_review_tier.py\n?? run_experiment_96_review_tier_operational_workflow.py\n?? run_experiment_97_zero_f1_feature_need_diagnosis.py\n?? run_experiment_98_tiny_train_normal_pooling.py\n?? run_experiment_98b_train_only_tiny_pooling.py\n?? run_experiment_99_spectral_derivative_feature_score.py\n?? run_model_hard_research_experiments.py\n?? run_multi_aug_robust_experiment.py\n?? run_original_improvement_experiment.py\n?? run_rank_ensemble_calibration.py\n?? run_rank_ensemble_calibration_v2.py\n?? run_rank_ensemble_threshold_calibration.py\n?? run_rank_threshold_calibration.py\n?? run_rocket_variant_experiment.py\n?? scratch/dry_run_true_infonce_multi_aug.py\n?? scratch/test_aeon_single_train_feature_extractors.py\n?? scratch/test_balanced_improvement_experiments.py\n?? scratch/test_exp137_policy_validation_evidence.py\n?? scratch/test_experiment_136_family_holdout_audit.py\n?? scratch/test_experiment_138_policy_train_only_audit.py\n?? scratch/test_experiment_139_family_neutral_replay.py\n?? scratch/test_experiment_141_full_coverage_source.py\n?? scratch/test_experiment_33_evalset_reconstruction.py\n?? scratch/test_experiment_40_original_score_normalization.py\n?? scratch/test_experiment_43_explanation_space.py\n?? scratch/test_experiment_44_classical_embeddings.py\n?? scratch/test_experiment_59_selector.py\n?? scratch/test_experiment_60_62_selector_variants.py\n?? scratch/test_experiment_68b_fallback_sweep.py\n?? scratch/test_experiment_69_operational_calibration.py\n?? scratch/test_experiment_73_large_rank_guards.py\n?? scratch/test_experiment_79_conv_ae_length.py\n?? scratch/test_experiment_85_exp84_selector.py\n?? scratch/test_experiment_86_train_only_agreement_selector.py\n?? scratch/test_experiment_87_index_diagnostics.py\n?? scratch/test_experiment_88_true_agreement_selector.py\n?? scratch/test_multi_aug_robust_experiment.py\n?? scratch/test_original_improvement_experiments.py\n?? scratch/test_rank_dashboard_operational.py\n?? scratch/test_rank_ensemble_calibration.py\n?? scratch/test_rank_ensemble_calibration_v2.py\n?? scratch/test_rank_ensemble_threshold_calibration.py\n?? scratch/test_rank_queue_safety.py\n?? scratch/test_rank_threshold_calibration.py\n?? scratch/test_true_infonce_loss.py\n?? train_only_reliability.py\n?? validated_exp93_chain.py",
+    "package_versions": {
+      "aeon": "1.5.0",
+      "numpy": "2.3.5",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.8.0",
+      "scipy": "1.17.1"
+    },
+    "python_version": "3.14.6",
+    "replay_script_paths": [
+      "/Users/minho/Documents/timesries project/run_experiment_138_policy_train_only_audit.py",
+      "/Users/minho/Documents/timesries project/run_experiment_139_family_neutral_common_support.py",
+      "/Users/minho/Documents/timesries project/run_experiment_141_family_neutral_full_coverage.py",
+      "/Users/minho/Documents/timesries project/run_exp137_policy_validation_evidence.py"
+    ],
+    "replay_script_sha256": {
+      "/Users/minho/Documents/timesries project/run_exp137_policy_validation_evidence.py": "095374b99ddb270bb043df1ad51677bd00a065c068ad0dea452f8ac411ee52f0",
+      "/Users/minho/Documents/timesries project/run_experiment_138_policy_train_only_audit.py": "ada14f10818807b184d32115973a7f8f26390c47384a141031b935c045e8e952",
+      "/Users/minho/Documents/timesries project/run_experiment_139_family_neutral_common_support.py": "a0a2dc5ef9755b48bd910139549365124ab56ba923e412ecb2bb07ef9317b331",
+      "/Users/minho/Documents/timesries project/run_experiment_141_family_neutral_full_coverage.py": "e33d8e5f38d8a886c300ea8fdfb043be7218be5dd646ade8d9f303e45fc6de51"
+    }
+  },
+  "reproducibility": {
+    "floating_point_tolerance": "exact index equality; reported metrics serialized from deterministic code; no tolerance used for A1 lane equality",
+    "output_hash_rule": "SHA256 of raw output bytes; row hashes use canonical JSON with sorted keys",
+    "parallelism": {
+      "a0_a1": 1,
+      "b1_workers": 6
+    },
+    "row_sorting_rule": "dataset ascending lexical order before CSV write and hash",
+    "seed": {
+      "exp84_config_random_state": 20260717,
+      "other_replay_seed": "delegated to frozen upstream result files"
+    }
+  },
+  "storage": {
+    "database_snapshot": {
+      "bytes": 1753284608,
+      "modified_utc": "2026-07-03T13:41:07+00:00",
+      "path": "/Users/minho/Documents/Dataset/univariate_ts.db",
+      "sha256": "8458e6787031afba104a2c93b6b578dacf183f9b85c5252938ec8e092673ef3c"
+    }
+  }
+}
+```

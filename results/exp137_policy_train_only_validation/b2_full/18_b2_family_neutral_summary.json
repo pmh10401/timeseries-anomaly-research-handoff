@@ -1,0 +1,29 @@
+{
+  "b1_common_support_comparison": {
+    "available": true,
+    "common_support_datasets": 339,
+    "exact_lane_match_datasets": 339,
+    "mismatch_datasets": []
+  },
+  "combined_metric_scope": "human_assisted_diagnostic_only",
+  "datasets": 1117,
+  "errors": [],
+  "experiment_id": "experiment_141_family_neutral_full_coverage",
+  "hard_alerts": 2085,
+  "hard_changed_datasets": 44,
+  "hard_fp": 326,
+  "hard_precision": 0.8436450839328538,
+  "hard_tp": 1759,
+  "mean_hard_f1": 0.6059914693348503,
+  "priority_changed_datasets": 2,
+  "priority_review_candidates": 7,
+  "priority_review_fp": 1,
+  "priority_review_precision": 0.8571428571428571,
+  "priority_review_tp": 6,
+  "retrospective_only": true,
+  "standard_changed_datasets": 14,
+  "standard_review_candidates": 647,
+  "standard_review_fp": 344,
+  "standard_review_precision": 0.46831530139103555,
+  "standard_review_tp": 303
+}

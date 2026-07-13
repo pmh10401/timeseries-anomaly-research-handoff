@@ -1,0 +1,310 @@
+- [x] 3대 기법(대조 학습 + KL 어닐링 + 분위수 POT) 융합 VAE 벤치마크 스크립트 작성 (`run_all_adaptive_cnn_fused_sota.py`)
+- [x] 단일 샘플 대상 1에폭 드라이런 및 역전파 흐름 무결성 검증 (`dry_run_fused_sota.py`)
+- [x] 947개 데이터셋 전수 벤치마크 평가 백그라운드 기동
+- [x] 결과 검증 및 전역 SOTA 지표 돌파 확인 후 깃허브 푸시 동기화
+- [x] [실험 21] 다중 위상 증강 대조 VAE 스크립트 작성 (`run_all_adaptive_cnn_multi_aug_contrastive.py`)
+- [x] [실험 22] 잠재 밀도 가중 VAE 스크립트 작성 (`run_all_adaptive_cnn_density_weighted.py`)
+- [x] 2대 신규 모델 단일 샘플 드라이런 테스트 기동 및 검증
+- [x] 947개 데이터셋 전수 벤치마크 백그라운드 병렬 가동
+- [x] 결과 대조표 갱신 및 깃허브 원격 최종 푸시지표 돌파 확인 후 깃허브 푸시 동기화
+- [x] [실험 23] True InfoNCE Multi-Augmentation VAE 스크립트 작성 (`run_all_adaptive_cnn_true_infonce_multi_aug.py`)
+- [x] True InfoNCE 손실 단위 테스트 작성 및 RED/GREEN 검증 (`scratch/test_true_infonce_loss.py`)
+- [x] 단일 데이터셋 1에폭 드라이런 및 역전파 흐름 검증 (`scratch/dry_run_true_infonce_multi_aug.py`)
+- [x] 1117개 데이터셋 전수 True InfoNCE 벤치마크 완료 및 Multi-Aug 대비 실패 확인
+- [x] [실험 24] Rank Ensemble Calibration v1 완료: equal 가중치 EVT F1 0.4350로 현재 최고 기록 확인 (`run_rank_ensemble_calibration.py`)
+- [x] Rank Ensemble 재실험 순차 실행 도구 준비: 중복 실행 방지, 상태 조회, 기존 출력 자동 백업 (`run_rank_experiments_sequential.py`)
+- [x] 실험 진행 모니터링 대시보드 구축: `http://127.0.0.1:8765/`에서 실행 상태, 진행률, 큐, 최근 로그, 전략별 성능 확인 (`serve_rank_dashboard.py`)
+- [x] 대시보드 1차 운영 모니터링 개선
+  - `/api/status`에 `operational_best`, `coverage`, `error_summary`, `strategy_details`를 추가하여 운영 후보, FP 부담, alert precision, train exceed, 데이터셋 coverage, 오류 원인을 한 화면에서 확인 가능하게 개선
+  - 전략 ranking과 완료 실험 성적표에 mean FP, alert precision, mean train exceed rate, predicted count, 운영 tier를 추가
+  - 병렬 실험처럼 개별 dataset 로그가 없는 경우에도 결과 CSV의 마지막 완료 dataset을 `Current Dataset`과 `Recent Datasets`에 표시하도록 fallback 추가
+  - 모바일에서 긴 strategy/table 이름 때문에 페이지 전체가 가로로 밀리던 문제를 수정하고, 표 내부 스크롤만 허용
+  - 검증: `scratch/test_rank_dashboard_operational.py`, `python3 -m py_compile`, 인증 `/api/status` smoke, Edge/Playwright desktop+mobile 렌더링 검증 통과. 대시보드 서버는 `http://127.0.0.1:8765/`에서 PID 기반 재기동 완료
+- [x] 대시보드 2차 분석 모니터링 개선
+  - `/api/status`에 `throughput`, `experiment_compare`, strategy별 `family_trouble_spots`를 추가
+  - `Run Health` 패널 추가: 최근 처리 속도, 평균 처리 속도, 최근 속도 기준 ETA, 마지막 progress marker 표시
+  - `Experiment Compare` 패널 추가: 현재 실행 중인 실험과 완료 실험들의 best strategy, mean F1, best 대비 delta, FP, precision, train exceed를 한 표에서 비교
+  - `Strategy Detail`에 `Family Trouble Spots` 추가: 선택 전략에서 FP/zero-F1/FN이 큰 family를 빠르게 확인
+  - 검증: `scratch/test_rank_dashboard_operational.py`, `python3 -m py_compile`, 인증 `/api/status` smoke, 인앱 브라우저 desktop/mobile 렌더링 검증 통과. DOM snapshot API는 런타임 오류가 있어 evaluate+screenshot 방식으로 대체 검증
+- [x] 대시보드 지표 설명 및 예제 추가
+  - `/api/status`에 `metric_glossary`를 추가하여 Progress, Runtime, Operational Pick, Mean FP, Alert Precision, Train Exceed, TP/FP/FN, Pred, F1, Zero-F1, Oracle F1, AUC-PR, Coverage, Family Trouble Spots 등 18개 지표의 쉬운 한글 설명과 예제를 제공
+  - 상단 주요 지표에는 `?` 도움말 버튼을 추가하여 hover/click 시 짧은 설명과 예제를 확인 가능
+  - 별도 `지표 설명` 패널을 추가하여 처음 보는 사용자도 각 지표의 의미, 좋은 방향, 예제를 한 번에 확인 가능
+  - `Family Trouble Spots`의 `zero`는 해당 family 안에서 F1이 0이 된 완전 실패 데이터셋 수로 설명
+  - 검증: `scratch/test_rank_dashboard_operational.py`, `python3 -m py_compile`, 인증 `/api/status` smoke, 인앱 브라우저 desktop/mobile 렌더링 검증 통과
+- [x] 대시보드 지표 설명 영역 축소
+  - `지표 설명` 전체 목록을 기본 접힘 상태의 패널로 변경하여 대시보드 세로 공간 점유를 줄임
+  - 각 상단 지표의 `?` 버튼을 클릭하면 해당 지표 설명/방향/예제만 작은 팝오버로 확인 가능하게 개선
+  - 검증: `scratch/test_rank_dashboard_operational.py`, `python3 -m py_compile`, 인앱 브라우저 desktop/mobile 클릭 검증 통과
+- [x] Rank threshold calibration의 oracle 정의 오류 확인: 기존 `oracle_f1`은 `scores > threshold` 기반이라 top-k 전략의 동점 선택을 상한으로 포괄하지 못함
+- [x] oracle 계산 기준 수정: rank/top-k 계열 실험은 `k=1..N` top-k sweep 기준 oracle로 계산하도록 수정 (`run_rank_threshold_calibration.py`, `run_experiment_26_rocket.py`)
+- [x] 잘못된 oracle 기준으로 생성된 실험 25 partial 결과 삭제: `rank_ensemble_threshold_calibration.csv`, summary, stdout/log 제거
+- [x] 속도 우선 전환: 순차 ROCKET partial 결과 삭제 후 4-worker 병렬 ROCKET runner로 재시작 (`run_experiment_26_rocket_parallel.py`)
+- [x] [실험 26] ROCKET random convolution anomaly score 전수 실험 완료 (`run_experiment_26_rocket_parallel.py`)
+  - 병렬 worker 수: `ROCKET_WORKERS=4`
+  - 결과 파일: `/Users/minho/Documents/Dataset/experiment_26_rocket_results.csv`
+  - summary 파일: `/Users/minho/Documents/Dataset/experiment_26_rocket_summary.csv`
+  - stdout log: `/Users/minho/Documents/Dataset/experiment_26_rocket_stdout.log`
+- [/] [실험 25 재실행] 수정된 top-k oracle 기준으로 Rank score threshold calibration 재실행 중
+  - 현재 실행 중: `rank_threshold_calibration`
+  - 이전 partial 결과는 삭제 완료했으므로 새 결과와 혼동하지 말 것
+- [ ] [실험 27 · 진단 전용] ROCKET score variants bundled (`run_experiment_27_rocket_score_variants.py`)
+  - 27-A~27-D를 하나의 전수 실험으로 묶어 256-kernel ROCKET feature를 데이터셋당 1회만 계산
+  - 포함 config: `rocket_256_robust_top16`, `rocket_256_robust_top64`, `rocket_256_knn5`, `rocket_256_iforest`
+  - 목적: tail score 폭(top-16/top-64), kNN 거리, IsolationForest score가 ROCKET median F1/zero-F1 문제를 완화하는지 확인
+  - 운영 시스템 최종 판정에는 사용하지 않음: top-k/prior-q 방식은 이상치가 없는 입력에도 강제로 일부를 anomaly로 판정할 수 있음
+  - 결과 파일 예정: `/Users/minho/Documents/Dataset/experiment_27_rocket_score_variants_results.csv`
+- [ ] [실험 27-E · 진단 전용] ROCKET 1024 kernels + robust top-32 score (`run_experiment_27e_rocket_1024_top32.py`)
+  - 목적: kernel 수 증가가 표현력과 oracle/top-k F1을 올리는지 확인
+  - 운영 시스템 최종 판정에는 사용하지 않음: top-k/prior-q 방식은 zero-anomaly 상황에서 false positive를 구조적으로 만들 수 있음
+  - 결과 파일 예정: `/Users/minho/Documents/Dataset/experiment_27e_rocket_1024_top32_results.csv`
+- [ ] [실험 27-F · 진단 전용] r-STSF-inspired random interval anomaly score (`run_experiment_27f_rstsf_interval.py`)
+  - 목적: 랜덤 interval mean/std/min/slope feature 기반 robust deviation이 ROCKET과 다른 실패 케이스를 보완하는지 확인
+  - 운영 시스템 최종 판정에는 사용하지 않음: train-normal threshold 버전은 실험 29에 포함
+  - 결과 파일 예정: `/Users/minho/Documents/Dataset/experiment_27f_rstsf_interval_results.csv`
+- [ ] [실험 28 · 진단 전용] MiniROCKET/MultiROCKET-style feature expansion (`run_experiment_28_minirocket_multirocket_features.py`)
+  - 목적: 기존 ROCKET의 random kernel score를 더 빠르고 설명 가능한 fixed-kernel/quantile-bias feature로 확장하여 median F1과 zero-F1 문제를 완화할 수 있는지 확인
+  - MiniROCKET-style config: length-9 zero-sum fixed kernels + train quantile bias + PPV feature, 256 features
+  - MultiROCKET-style config: raw + first-difference representation, PPV/MPV/MIPV/LSPV pooling statistics, 1024 features
+  - score config: 각 feature set에 robust deviation top-32/top-64 적용
+  - 운영 시스템 최종 판정에는 사용하지 않음: train-normal threshold 버전은 실험 29에 포함
+  - 결과 파일 예정: `/Users/minho/Documents/Dataset/experiment_28_minirocket_multirocket_features_results.csv`
+- [ ] [실험 29] Train-normal threshold calibration (`run_experiment_29_train_normal_threshold_calibration.py`)
+  - 목적: ROCKET/MiniROCKET/MultiROCKET-style score에도 Multi-Augmentation VAE처럼 train 정상 분포 기반 threshold를 적용하여 top-k 산출 방식과 공정 비교
+  - 운영 시스템 원칙: 이상치가 없는 입력에서는 anomaly 예측 수가 0일 수 있어야 하며, top-k처럼 강제 alert를 만들지 않아야 함
+  - 1순위 후보: Dynamic EVT-POT/GPD (`evt_gpd_p90_dynamic`) - 기존 VAE 계열 최고 검증 방식과 동일한 꼬리 분포 기반
+  - 2순위 후보: empirical dynamic quantile - 분포 적합 실패/소형 train set에 가장 안정적인 비모수 fallback
+  - 3순위 후보: skew-adaptive parametric threshold - lognormal/gamma/normal을 왜도에 따라 선택하는 보조 기준
+  - 대조 후보: `evt_gpd_p95_dynamic`, `fixed_q02_empirical`
+  - score config: `rocket_256_robust_top16`, `rocket_256_robust_top32`, `rocket_256_robust_top64`, `rocket_256_knn5`, `rocket_256_iforest`, `rocket_1024_robust_top32`, `rocket_1024_robust_top64`, `rstsf_interval_top32`, `rstsf_interval_top64`, `minirocket_ppv_raw_top32`, `minirocket_ppv_raw_top64`, `multirocket_stats_raw_diff_top32`, `multirocket_stats_raw_diff_top64`
+  - 운영 신뢰성 지표: 각 threshold method별 `train_exceed_count`, `train_exceed_rate`를 기록하여 정상 train 분포에서의 예상 false-positive 부담을 확인
+  - 결과 파일 예정: `/Users/minho/Documents/Dataset/experiment_29_train_normal_threshold_calibration_results.csv`
+- [x] 실험 27 큐 사전 검토 완료
+  - 27-A~27-F 각 실험의 단일 데이터셋 smoke test 통과: 각 9개 strategy row 생성 확인
+  - `run_rocket_variant_experiment.py` 환경변수 정수 파싱 방어 로직 추가
+  - `run_rank_experiments_sequential.py list`가 현재 실행 중인 실험을 `running`으로 표시하도록 개선
+  - 대시보드에서 27-A~27-F 큐 항목 표시 확인
+- [x] 실험 27 구현/구조 재검토 및 보강
+  - 27-A~27-D가 외부 `ROCKET_NUM_KERNELS` 환경변수에 오염되지 않도록 wrapper에서 `256`을 명시
+  - 27-E는 `ROCKET_NUM_KERNELS=1024` 고정 확인
+  - r-STSF-inspired 실험을 raw / 1차 차분 / 2차 차분 / periodogram 표현과 9개 interval 통계(mean, std, min, max, median, IQR, slope, skew, kurtosis)로 보강
+  - 보강 후 r-STSF 단일 데이터셋 smoke test 통과
+- [x] 대기 실험 속도 개선 검토 및 적용
+  - 27-A~27-D 개별 큐를 `experiment_27_rocket_score_variants` 묶음 실행으로 대체하여 중복 ROCKET feature 계산 제거
+  - top-k oracle F1을 `k=1..N` 반복 예측 대신 정렬 후 누적 TP 공식으로 계산하도록 개선
+  - 각 score config마다 AUC/PR/oracle을 1회만 계산하고 9개 strategy는 threshold 예측/F1만 계산하도록 개선
+  - top-k deviation 평균은 전체 정렬 대신 `np.partition` 기반으로 계산
+  - 병렬 worker 내부 BLAS thread 과다 사용을 줄이도록 `OMP_NUM_THREADS`, `OPENBLAS_NUM_THREADS`, `MKL_NUM_THREADS`, `VECLIB_MAXIMUM_THREADS`, `NUMEXPR_NUM_THREADS` 기본값을 1로 제한
+  - `py_compile`, top-k oracle 동등성 테스트, partition top-k 동등성 테스트, 27/27E/27F 단일 데이터셋 smoke test 통과
+- [x] MiniROCKET/MultiROCKET-style feature expansion 준비 완료
+  - `run_experiment_28_minirocket_multirocket_features.py` 작성
+  - 큐 러너와 대시보드에 `experiment_28_minirocket_multirocket_features` 등록
+  - 축소 feature smoke test 통과: 36 rows, 4 configs, 9 strategies
+  - 기본 feature smoke test 통과: MiniROCKET-style 256 features, MultiROCKET-style 1024 features
+  - 현재 큐 맨 뒤에 실험 28 추가 완료
+- [x] Train-normal threshold calibration 분포 후보 검토 및 실험 29 준비 완료
+  - 기존 VAE 계열은 train 정상 점수 상위 90% excess에 GPD를 적합하는 EVT-POT가 표준이며, dynamic target q는 `max(0.001, 1 / N_test)` 사용
+  - 과거 Weibull/Gumbel 전체분포/블록최대 방식은 GPD-POT 대비 열위였으므로 이번 실험에서는 제외하고, 필요 시 별도 대조군으로만 취급
+  - `run_experiment_29_train_normal_threshold_calibration.py` 작성 및 큐/대시보드 등록
+  - 축소 smoke test 통과: 6 configs x 5 threshold methods = 30 rows
+  - 기본 feature smoke test 통과: threshold method별 예측 수와 F1 생성 확인
+  - 현재 큐 맨 뒤에 실험 29 추가 완료
+- [x] 운영 시스템 기준 큐 정책 수정
+  - top-k/prior-q 방식은 zero-anomaly 입력에도 일부 샘플을 강제로 anomaly로 판정하므로 최종 운영 판정 후보에서 제외
+  - 실험 27/27-E/27-F/28은 자동 실행 큐에서 제거하고 진단 전용 pending 실험으로 보존
+  - 실험 29에 r-STSF train-normal threshold 후보를 추가하고 `train_exceed_rate` 기록을 추가
+  - 자동 실행 큐를 `rank_threshold_calibration -> experiment_29_train_normal_threshold_calibration` 순서로 변경
+  - 축소 smoke test 통과: 7 configs x 5 threshold methods = 35 rows, `train_exceed_rate` 생성 확인
+- [x] 진단 전용 실험 27/27-E/27-F/28의 운영 전환 가치 재검토
+  - 운영 가치 있음: ROCKET feature deviation 집계 폭(top-16/top-32/top-64), kNN/IsolationForest feature-space score, 1024-kernel ROCKET, r-STSF interval score, MiniROCKET/MultiROCKET-style feature score
+  - 운영 가치 낮음: test 내부 top-k/prior-q 판정 방식 자체. zero-anomaly 상황에서 강제 false positive를 만들 수 있으므로 최종 운영 판정에서 제외
+  - 실험 29에 운영 가치 있는 feature/score 변형을 흡수: 13 configs x 5 train-normal threshold methods = 65 rows per dataset
+  - 실험 29 내부에서 같은 feature set을 재사용하도록 캐시 적용: 256 ROCKET, 1024 ROCKET, r-STSF, Mini/MultiROCKET feature를 config마다 반복 생성하지 않음
+  - 축소 및 기본 단일 데이터셋 smoke test 통과: 65 rows, 13 configs, 5 threshold methods, `train_exceed_rate` 생성 확인
+- [x] 운영 평가 원칙 확정
+  - 정상치와 이상치를 잘 분리하는 score/feature 문제와, 해당 score 위에서 threshold를 정하는 문제를 분리해서 개선
+  - threshold는 사용자가 수동 설정하는 값이 아니라 train 정상 분포에서 자동 산출하는 값을 기본값으로 채택
+  - 실험 29는 score 후보별 AUC/PR/oracle로 분리력을 보고, threshold method별 F1/예측 수/`train_exceed_rate`로 운영 판정 안정성을 별도 평가
+  - 큐 러너 중복 실행 방지용 lock을 추가하여 실험 25 종료 후 실험 29가 한 번만 시작되도록 보강 (`run_rank_experiments_sequential.py`)
+- [x] 대시보드 완료 실험 성적표 기능 추가
+  - `/api/status`에 `completed_results`를 추가하여 완료된 실험의 best config/strategy, mean/median F1, AUC, PR, oracle F1, zero F1, dataset/row 수, 소요 시간, 종료 시각을 제공
+  - 대시보드 화면에 `Completed Results` 표를 추가하여 실험 24/26 등 완료된 결과를 진행 큐와 별도로 고정 표시
+  - 서버 재시작 및 인증 API smoke test 통과: 현재 완료 결과 2건(`rank_v1_train_evt`, `experiment_26_rocket`) 표시 확인
+- [x] 실험 25 종료 후 실험 29 큐 시작 오류 복구
+  - 증상: 실험 25가 완료된 뒤 큐 러너가 `Unknown experiment id: experiment_29_train_normal_threshold_calibration`로 종료되어 실험 29가 자동 시작되지 않음
+  - 원인: 오래 떠 있던 큐 러너가 실험 29 등록 전 코드 상태로 실행되고 있었음
+  - 조치: 현재 코드 기준 큐 러너를 새로 기동하여 실험 29 시작 확인
+  - 추가 보강: 활성 실험 프로세스 감지 로직이 진단 명령 문자열을 오인하지 않도록 실제 Python 실험 스크립트명 기준으로 제한 (`run_rank_experiments_sequential.py`)
+  - 현재 상태: 실험 29 실행 중, 4-worker multiprocessing 동작 확인, 결과 CSV 생성 확인
+  - 2026-07-07 정합성 복구: 실험 25 누락 `WordSynonyms_normal_14`, `WordSynonyms_normal_15`, `WordSynonyms_normal_16` 3개 데이터셋을 복구. `rank_ensemble_threshold_calibration_summary.csv`는 strategy-only pooling을 중단하고 `config_name + strategy` 단위 45행 summary로 재생성
+- [x] [실험 30] KNN operational threshold sweep (`run_experiment_30_knn_threshold_sweep.py`)
+  - 목적: 실험 29에서 가장 강했던 `rocket_256_knn5` score를 고정하고, 운영 가능한 자동 threshold 기본값 후보를 좁힘
+  - 비교 후보: empirical q sweep (`0.0025`, `0.005`, `0.0075`, `0.01`, `0.015`, `0.02`, `0.03`, `0.05`) 및 count-capped threshold (`0`, `1`, `2`, `1%`, `2%`)
+  - 운영 평가 기준: F1뿐 아니라 `train_exceed_rate`, `train_exceed_count`, `predicted_count`, zero F1 count를 함께 비교
+  - 단일 데이터셋 smoke test 통과: 13 threshold rows, `train_exceed_rate` 생성 확인
+  - 큐/대시보드 등록 완료
+  - 전체 실행 완료: 1,117 datasets x 13 threshold methods = 14,521 detail rows
+  - 최고 mean F1: `empirical_q_020` mean F1 `0.5407`, median F1 `0.6250`, zero F1 `282`, mean predicted count `3.91`, mean train exceed rate `0.0772`
+  - 운영 후보: `count_cap_2pct` mean F1 `0.5286`, median F1 `0.5714`, zero F1 `310`, mean predicted count `3.76`, mean train exceed rate `0.0074`, max train exceed rate `0.0200`
+  - 해석: 순수 성능만 보면 q=0.02가 우세하지만, train 정상 구간에서도 평균 7.7%가 threshold를 넘으므로 실무 기본값으로는 부담이 큼. 기본 운영 정책은 `count_cap_2pct` 계열을 우선 후보로 보고, q=0.02는 연구용/민감도 높은 모드로 분리하는 방향이 타당함
+- [x] [실험 31] KNN operational budget sweep (`run_experiment_31_knn_operational_budget_sweep.py`)
+  - 목적: `rocket_256_knn5` score는 고정하고, 운영 false-positive budget을 `0%`부터 `5%`까지 촘촘히 비교
+  - 비교 후보: `count_cap_0`, `0.5%`, `1%`, `1.5%`, `2%`, `2.5%`, `3%`, `4%`, `5%`, 그리고 연구 기준선 `empirical_q_020_reference`
+  - 이유: 실험 30에서 `count_cap_2pct`가 운영 후보로 좋아 보였지만, `2%`와 q=0.02 사이의 적정 예산을 더 세밀히 확인해야 함
+  - 단일 데이터셋 smoke test 통과: 10 threshold rows 생성 확인
+  - 전체 실행 완료: 1,117 datasets x 10 threshold methods = 11,170 detail rows
+  - 최고 mean F1: `empirical_q_020_reference` mean F1 `0.5407`, median F1 `0.6250`, mean train exceed rate `0.0772`
+  - count-cap 최고: `count_cap_5pct` mean F1 `0.5352`, median F1 `0.5385`, mean train exceed rate `0.0258`, mean predicted count `6.55`
+  - 운영 균형 후보: `count_cap_3pct` mean F1 `0.5336`, median F1 `0.5714`, mean train exceed rate `0.0134`, mean predicted count `4.77`
+  - 보수 기본 후보: `count_cap_2pct` mean F1 `0.5286`, median F1 `0.5714`, mean train exceed rate `0.0074`, mean predicted count `3.76`
+  - 해석: F1 상승은 `2% -> 3% -> 4%`에서 빠르게 포화되고, `4% -> 5%`는 mean F1 증가가 사실상 없음. 운영 기본값은 `count_cap_2pct`, 민감도 우선 운영값은 `count_cap_3pct`, 연구/고민감 모드는 `empirical_q_020_reference`로 분리하는 방향이 타당함
+- [x] [실험 32] KNN score capacity sweep (`run_experiment_32_knn_score_capacity_sweep.py`)
+  - 목적: threshold 문제와 분리하여, KNN score 자체의 분리력을 `num_kernels`와 `knn_neighbors` 축으로 개선할 수 있는지 확인
+  - 비교 후보: `rocket_128_knn3`, `rocket_128_knn5`, `rocket_256_knn3`, `rocket_256_knn5`, `rocket_256_knn10`, `rocket_512_knn5`, `rocket_512_knn10`
+  - threshold는 운영형 `count_cap_1pct`, `count_cap_2pct`, `count_cap_3pct`로 제한하여 무조건 일부를 이상치로 잡는 top-k 방식은 제외
+  - 단일 데이터셋 smoke test 통과: 21 rows 생성 확인
+  - 전체 실행 완료: 1,117 datasets x 21 config/method pairs = 23,457 detail rows
+  - 최고 mean F1: `rocket_256_knn3 + count_cap_3pct` mean F1 `0.5578`, median F1 `0.6667`, train exceed rate `0.0134`, mean predicted count `4.38`, AUC-PR `0.7109`, oracle F1 `0.7978`
+  - 보수 운영 후보: `rocket_256_knn3 + count_cap_2pct` mean F1 `0.5494`, median F1 `0.6667`, train exceed rate `0.0074`, mean predicted count `3.52`
+  - 비교 기준 개선: 기존 `rocket_256_knn5 + count_cap_2pct` mean F1 `0.5286` 대비 `+0.0208`, 기존 q02 연구 기준 `0.5407` 대비 `+0.0087`이면서 train exceed rate는 `7.716% -> 0.737%`로 크게 낮음
+  - 해석: KNN `k=3`이 `k=5/10`보다 anomaly score 분리력이 더 좋음. kernel 수는 `128`과 `256`이 비슷하고, `512`는 비용 증가 대비 이득이 제한적. 다음 기본 모델은 `rocket_256_knn3`로 승격하고, 운영 기본 threshold는 `count_cap_2pct`, 민감도 우선 threshold는 `count_cap_3pct`로 두는 것이 타당함
+- [x] DB metadata 기반 데이터 크기/세그먼트 분석
+  - DB 확인: `/Users/minho/Documents/Dataset/univariate_ts.db`의 `datasets` 테이블에 `train_normal_count`, `test_total_count`, `test_anomaly_count`, `series_length`가 있어 실험 결과와 직접 결합 가능
+  - 분석 산출물: `/Users/minho/Documents/Dataset/experiment_32_size_segment_analysis.csv`
+  - 핵심 관찰: exp32 대상 1,117개 중 `train_normal_count < 50`이 616개(55.1%), `<100`이 866개(77.5%)라 작은 데이터셋을 단순 제외하면 평가 모집단이 크게 바뀜
+  - 단순 제외 결과: 작은 train set을 제외할수록 mean F1이 상승하지 않고 대체로 낮아짐. 작은 데이터셋은 품질이 낮다기보다 test anomaly가 1개인 쉬운 케이스가 많아 전체 평균을 끌어올리는 성격이 있음
+  - 정책 시뮬레이션: `rocket_256_knn3` 기준 `cap2` mean F1 `0.5494`, train exceed `0.737%`; `cap3` mean F1 `0.5578`, train exceed `1.335%`
+  - size-aware 후보: `test_total_count > 50`이고 `series_length`가 `513-1024`가 아닐 때만 `cap3`, 나머지는 `cap2`를 쓰는 `adaptive_v0`가 mean F1 `0.5586`, train exceed `0.997%`로 cap3와 비슷한 F1을 더 낮은 알림 부담으로 달성
+  - 해석: 데이터 수가 적은 데이터셋을 버리기보다 baseline confidence를 낮게 표시하고, DB metadata 기반으로 `cap2/cap3`를 자동 선택하는 방향이 더 적합함
+- [x] Test dataset 분포 및 평가 구조 확인
+  - DB/instances 대조: `datasets` 메타데이터와 `instances` 실제 라벨 합계 불일치 0건. TEST label은 정상 221,284개, 이상 4,516개이며 TRAIN은 정상 170,937개만 존재
+  - 분석 산출물: `/Users/minho/Documents/Dataset/experiment_32_test_segment_analysis.csv`
+  - 핵심 관찰: 전체 1,119개 dataset의 test anomaly rate가 모두 정확히 2.0%로 고정되어 있음. 따라서 `test_total_count`가 곧 `test_anomaly_count`를 결정함
+  - test 크기 분포: test_total_count median 50, p75 100, p95 955, max 23,400. `test_total_count <= 50`이 788개(70.4%)로 전체 평가의 대부분을 차지
+  - anomaly 개수 분포: test anomaly 1개짜리 dataset이 788개(70.4%), 2개짜리 dataset이 90개(8.0%), 11개 이상은 109개(9.7%)
+  - exp32 누락 dataset: `CornellWhaleChallenge`, `Wafer_normal_1` 2개는 DB에는 있으나 실험 32 결과에는 없음
+  - `rocket_256_knn3` test-size별 결과: test 1-50에서는 cap2가 cap3보다 약간 좋고 더 조용함(mean F1 0.5843 vs 0.5828, train exceed 0.35% vs 0.75%)
+  - test 51-100에서는 cap3가 크게 유리함(mean F1 0.4721 vs cap2 0.4005), test 201-500/501+에서도 cap3가 더 높은 F1을 보임. 다만 큰 test set에서는 평균 예측 건수도 크게 증가함
+  - 해석: 단일 이상치 test set에서는 cap2가 적합하고, 복수 이상치/큰 test window에서는 cap3가 detection recall을 보강함. 운영 기본 정책은 `test_total_count <= 50`이면 cap2, 그 외는 cap3 후보를 검토하되 series length 513-1024 guard를 함께 쓰는 adaptive 정책이 타당함
+  - 환경 정비: 기본 `python3`에 `pandas`, `numpy`, `scipy`, `scikit-learn`, `matplotlib`, `seaborn`, `pyarrow`, `tqdm` 설치 완료. 핵심 분석 라이브러리 import 확인 완료
+- [x] Dataset 추가 메타정보 및 숨은 평가 리스크 확인
+  - 분석 산출물: `/Users/minho/Documents/Dataset/dataset_metadata_profile.csv`, `/Users/minho/Documents/Dataset/dataset_family_profile.csv`, `/Users/minho/Documents/Dataset/dataset_blob_quality_profile.csv`, `/Users/minho/Documents/Dataset/dataset_actual_length_profile.csv`, `/Users/minho/Documents/Dataset/dataset_train_test_overlap_profile.csv`, `/Users/minho/Documents/Dataset/experiment_32_overlap_segment_analysis.csv`
+  - 데이터 출처 구조: 총 1,119개 dataset, 129개 family. UCR one-vs-all 변환 1,118개와 Hugging Face `CornellWhaleChallenge` 1개로 구성
+  - family 편중: `ShapesAll` 60개, `PigAirwayPressure/PigArtPressure/PigCVP` 각 52개, `FiftyWords` 50개 등 one-vs-all class 수가 많은 family가 macro 평균에 여러 번 반영됨
+  - 저장 구조: `values_blob`은 float32 시계열, `labels_blob`은 uint8 label mask. 샘플 검증상 label 0은 전 구간 0, label 1은 전 구간 1로 저장되어 있어 anomaly 위치를 표시하는 localized timestep mask가 아니라 instance-level label을 전체 길이에 반복한 mask임
+  - 메타데이터 불일치: DB상 `equal_length=True`, `has_missing=False`이나 실제 blob 길이 기준 153개 dataset(13.7%)은 가변 길이이며 `series_length`와 실제 `values_blob` 길이가 맞지 않음. 주요 family는 Gesture/AllGestureWiimote/PLAID/MelbournePedestrian 계열
+  - length 기반 정책 주의: 가변 길이 dataset은 `series_length` 단일값이 대표 길이로 부정확할 수 있으므로, 이후 길이 guard는 DB 메타데이터가 아니라 실제 blob 길이의 min/median/max 또는 model input padding 길이를 기준으로 다시 정의해야 함
+  - train/test 정상 overlap: test 정상 221,284개 중 train 정상과 exact value overlap인 샘플이 179,652개(81.2%). 모든 dataset에서 train/test 정상 overlap이 존재함
+  - test 정상 중복: test 정상 내부 duplicate도 76,788개(34.7%) 존재. 특히 소형 train family에서는 같은 정상 샘플이 test에 반복되어 false positive가 줄어드는 방향으로 평가가 쉬워질 수 있음
+  - exp32 overlap 세그먼트: overlap 90-99% bucket은 AUC-PR 0.8346, oracle F1 0.9009로 매우 높고, 75-90% bucket은 AUC-PR 0.5919, oracle F1 0.6909로 낮음. 즉 전체 평균은 데이터셋 중복/재사용 구조의 영향을 받음
+  - 해석: 현재 결과는 "2% anomaly one-vs-all controlled benchmark"에서는 유효하지만, 실무 운영 성능으로 일반화할 때는 중복 제거/계열 단위 분리/가변 길이 재처리를 별도 검증해야 함
+- [x] [실험 33] 평가셋 재구성 검증 완료 (`run_experiment_33_evalset_reconstruction_validation.py`)
+  - 목적: 기존 DB를 덮어쓰지 않고 `values_blob` hash 기반 manifest를 만들어 train/test 정상 exact overlap 제거, test normal duplicate 제거, 2% 균형 유지 조건에서 ROCKET 운영 후보를 재평가
+  - 테스트: `scratch/test_experiment_33_evalset_reconstruction.py`로 strict manifest overlap 제거, balanced 2% 비율, deterministic manifest 생성 invariant 검증
+  - 산출물: `/Users/minho/Documents/Dataset/experiment_33_evalset_reconstruction_manifest.csv`, `experiment_33_evalset_reconstruction_results.csv`, `experiment_33_evalset_reconstruction_summary.csv`, `experiment_33_evalset_reconstruction_comparison.csv`
+  - manifest 결과: 총 1,119 datasets 중 `strict_unbalanced` eligible 1,118개, `balanced_2pct` eligible 174개. 2%를 유지하려면 clean normal이 최소 49개 필요하므로 평가 가능 dataset 수가 크게 줄어듦
+  - strict 결과: `strict_unbalanced + clean_test_only + count_cap_3pct`가 mean F1 0.5705, median F1 0.6667, AUC-PR 0.7455, oracle F1 0.8323. 기존 exp32 same-eligible cap3 mean F1 0.5577보다 높음
+  - strict 해석: 성능 상승은 모델이 더 좋아진 것이 아니라, train-overlap normal을 제거하면서 test normal 수가 크게 줄어 anomaly rate가 평균 16.7% 수준으로 올라간 효과가 큼. 따라서 운영 성능 근거로 쓰면 안 됨
+  - balanced 결과: `balanced_2pct + clean_test_only + count_cap_3pct` mean F1 0.3407, median F1 0.3333, AUC-PR 0.4474, oracle F1 0.5674. 같은 174개 eligible subset의 기존 exp32 cap3 mean F1 0.4679 대비 -0.1264 하락
+  - clean train dedupe 영향: `clean_test_only`와 `clean_train_test` 차이는 매우 작음. 주요 성능 변동 원인은 train 정상 중복보다 test 정상 overlap/재사용 구조였음
+  - 운영 결론: 기존 exp32의 `rocket_256_knn3 + cap2/cap3` headline은 중복 포함 benchmark 성능으로 기록하고, 실무 운영 신뢰도 기준은 `balanced_2pct` clean 평가 결과를 별도 하한선으로 봐야 함
+  - 다음 방향: raw UCR source에서 train/test를 family/class 단위로 다시 분할하거나, 최소한 `balanced_2pct` clean eligible 174개를 중심으로 score 개선 실험을 진행해야 함. 단순 threshold 조정만으로는 clean 2% 조건의 F1 0.34대를 크게 회복하기 어려움
+- [ ] [실험 34-39] clean-balanced score 개선 연속 실험 준비
+  - 목적: 실험 33에서 확인된 `balanced_2pct + clean_test_only` 하락을 기준으로, threshold만 조정하지 않고 score 자체의 분리력을 개선할 수 있는지 검증
+  - 기준선: `rocket_256_knn3 + count_cap_3pct` mean F1 0.3407, median F1 0.3333, AUC-PR 0.4474, oracle F1 0.5674, zero-F1 56/174
+  - 공용 엔진: `run_balanced_improvement_experiment.py`
+  - 테스트: `scratch/test_balanced_improvement_experiments.py`로 manifest 필터링/ID 파싱, train-reference rank normalization, count-cap threshold, family-macro summary 검증
+  - 속도 guard: `CornellWhaleChallenge`는 길이 4000, clean test 4550개, train 18378개로 개발 반복 큐 전체를 막는 병목이므로 34-39 반복 실험에서는 제외하고 173개 clean UCR-style subset을 기준으로 비교. 최종 후보는 별도 `--include-oversized` 재검증 필요
+  - 실험 34: `experiment_34_balanced_feature_capacity_sweep` - ROCKET kernel 수와 kNN k값을 clean-balanced 조건에서 재평가
+  - 실험 35: `experiment_35_balanced_threshold_policy_sweep` - score와 threshold 병목을 분리하기 위한 count-cap/adaptive/family guard 진단
+  - 실험 36: `experiment_36_balanced_score_normalization_sweep` - 지역 train 정상 밀도 기반 KNN score normalization으로 false positive-heavy family 개선 가능성 확인
+  - 실험 37: `experiment_37_balanced_bagged_rocket_ensemble` - 여러 ROCKET seed/kernel/k 후보를 rank ensemble로 안정화
+  - 실험 38: `experiment_38_balanced_actual_length_handling` - metadata 길이 대신 실제 blob 길이 median/max 기반 입력 길이 처리 비교
+  - 실험 39: `experiment_39_balanced_candidate_retest` - 좋은 후보군과 family guard threshold를 최종 재검증
+  - 평가 기준: balanced clean mean AUC-PR/oracle F1 개선을 먼저 보고, operating F1, zero-F1 count, mean FP가 함께 개선되는 후보만 승격
+  - 큐 원칙: 과거 pending 실험이 끼어들지 않도록 `run-next`가 아니라 explicit queue + `run-queue`로 34 -> 39 순차 실행
+  - 2026-07-07 진행: 실험 34는 Cornell 제외 173개 기준 완료 처리. best 중간/최종 후보는 `rocket_256_knn3 + count_cap_2pct` 계열이며, 35-39는 detached screen queue에서 순차 실행 중
+  - 2026-07-07 재진행: 사용자 요청에 따라 중간 실행 중이던 실험 40을 중지하고 partial 산출물을 aborted archive로 이동. 큐를 35 -> 36 -> 37 -> 38 -> 39 -> 40 순서로 재구성하여 실험 35부터 다시 실행 시작
+  - 2026-07-07 정정: 위 재진행은 사용자의 의도와 다르게 clean-balanced 35-39를 다시 실행한 것이었음. 해당 실행을 중지하고 잘못 생성된 clean-balanced 35/36 산출물은 `misread_clean_balanced_before_original35_*` archive로 이동
+  - 2026-07-07 정합성 복구: clean-balanced 35/36은 완전 archive를 dashboard current 파일로 복구. clean-balanced 39는 누락 4개 dataset(`EthanolLevel_normal_2`, `FaceAll_normal_13`, `FaceAll_normal_8`, `ItalyPowerDemand_normal_2`)을 재계산하여 173 datasets x 20 rows로 복구하고 summary 재생성
+- [ ] [실험 35-39 original] Original repeated-normal 개선 실험 재구성 및 순차 실행
+  - 목적: 35번부터의 threshold/score/bagging/length/candidate retest 실험 아이디어를 clean-balanced가 아니라 기존 원본 DB 반복 정상 구조에서 다시 검증
+  - 데이터셋 해석 원칙: test 정상에 train 정상과 같거나 매우 유사한 데이터가 포함된 것은 실제 설비/레시피 운영에서 정상 패턴이 반복되는 상황을 흉내 내기 위한 의도적 구조로 본다
+  - 이상치 비율 해석: test anomaly 2%는 실제 현장 발생률 추정치가 아니라, 이상치가 발생했을 때 모델이 명확한 이상을 잡는지 확인하기 위한 평가용 설정이다
+  - 운영 우선순위: 현재 단계에서는 miss와 false alarm이 모두 중요하지만, 비지도 학습에서 사용자의 라벨링 참여를 유도해야 하므로 false alarm 저감을 더 우선한다. 목표는 피로도를 낮추고 명확한 이상치만 검토 요청하는 것이다
+  - 중복 한계: train/test 완전 동일 정상 샘플 중복은 과도한 설정일 수 있다. 다만 임의 synthetic normal을 만들 경우 신뢰도 문제가 있으므로, 원본 benchmark는 반복 정상 운영 시나리오로 유지하고 clean-balanced 결과는 보조/하한 검증으로 분리한다
+  - 공용 엔진: `run_original_improvement_experiment.py`
+  - 대상: 기존 원본 benchmark와 동일하게 `CornellWhaleChallenge`, `Wafer_normal_1`을 제외한 1,117 datasets
+  - 원본 35: `experiment_35_original_threshold_policy_sweep` - `rocket_256_knn3_threshold_probe` 기준 `count_cap_1pct`~`5pct`, `dynamic_1_over_n`, `adaptive_v0`, `family_guard_v1` 비교
+  - 원본 36: `experiment_36_original_score_normalization_sweep` - raw KNN, density ratio, local gap score normalization 비교
+  - 원본 37: `experiment_37_original_bagged_rocket_ensemble` - 여러 ROCKET seed/kernel/k 조합의 rank ensemble 비교
+  - 원본 38: `experiment_38_original_actual_length_handling` - metadata length, actual median, test median, actual max cap2048 비교
+  - 원본 39: `experiment_39_original_candidate_retest` - 원본 조건에서 후보 모델/family guard 재검증
+  - 검증: `scratch/test_original_improvement_experiments.py` 통과, `experiment_35_original` 2개 dataset smoke run 통과
+  - 실행: 큐를 `35_original -> 36_original -> 37_original -> 38_original -> 39_original -> 40_original` 순서로 설정하고 detached runner로 시작. 대시보드 active는 `experiment_35_original_threshold_policy_sweep`
+  - 2026-07-07 08:22 KST 확인: `experiment_35_original_threshold_policy_sweep`와 `experiment_36_original_score_normalization_sweep` 완료, `experiment_37_original_bagged_rocket_ensemble` 실행 중. 이후 `38_original -> 39_original -> 40_original -> 41 -> 42` 순서로 큐 유지
+- [ ] [실험 40] Original repeated-normal score normalization sweep (`run_experiment_40_original_score_normalization_sweep.py`)
+  - 목적: 사용자의 설명에 따라 기존 원본 DB의 train/test 정상 중복 구조를 실무 운영 환경의 반복 정상 상태로 보고, clean-balanced가 아닌 원본 benchmark에서 다시 검증
+  - 대상: 원본 split 기준 1,117 datasets. 기존 exp32와 동일하게 `CornellWhaleChallenge`, `Wafer_normal_1`은 제외
+  - 비교 후보: `rocket_256_knn3_raw`, `rocket_256_knn3_local_gap`, `rocket_256_knn3_density_ratio`, `rocket_512_knn5_local_gap`
+  - threshold 정책: 운영형 자동 threshold인 `count_cap_1pct`, `count_cap_2pct`, `count_cap_3pct`만 비교
+  - 판단 기준: mean/median F1만 보지 않고 zero-F1 dataset 수, family macro F1, mean predicted count, train exceed rate, AUC-PR/oracle F1을 함께 비교
+  - 실행 원칙: 이번 요청에서는 원본 방식 재실험을 우선하므로 `experiment_40_original_score_normalization_sweep`만 큐에 넣고 순차 실행
+  - 2026-07-07 진행: 테스트/문법 검증 통과 후 detached queue runner로 실행 시작. 대시보드 active experiment 확인 완료
+  - 2026-07-07 변경: 사용자 요청으로 실험 40 단독 실행을 중단하고, 실험 35-39 재실행 이후 이어서 실행되도록 큐 후순위로 이동
+  - 2026-07-07 정정: `experiment_35_original`부터 `experiment_39_original`까지 원본 DB 실험을 먼저 수행한 뒤 마지막에 이어서 실행되도록 유지
+- [ ] [실험 41-42] Multi-Augmentation Contrastive VAE robust 재실험
+  - 목적: 기존 Multi-Aug 결과가 947개에 머문 원인(variable length 153개, NaN/inf 17개)을 보정하고, 1,117개 원본 repeated-normal benchmark에서 다시 평가
+  - 공용 엔진: `run_multi_aug_robust_experiment.py`
+  - 전처리: `sanitize_series`로 NaN/inf 보정, `align_series_lengths`로 가변 길이 시계열을 metadata/대표 길이에 맞춰 정렬
+  - 실험 41(A): `experiment_41_multi_aug_robust_baseline` - 기존 Multi-Aug 구조/증강/EVT 계열 threshold를 최대한 유지한 robust baseline
+  - 실험 42(A+B): `experiment_42_multi_aug_robust_operational` - 실험 41의 robust loader에 `count_cap_1pct`, `count_cap_2pct`, `count_cap_3pct`, `adaptive_v0`와 TP/FP/FN/predicted count/train exceed 기록을 추가
+  - 검증: `scratch/test_multi_aug_robust_experiment.py` 통과. 1 dataset smoke에서 실험 41은 3 threshold rows, 실험 42는 7 threshold rows 생성 확인
+  - 실행: 기존 큐 뒤에 `41 -> 42` 순서로 추가. 기존 queue runner가 새 ID 등록 전 시작된 상태라, 기존 큐 완료 후 새 코드 runner가 이어받도록 `rank_queue_new_ids_watchdog` screen 세션을 추가
+- [ ] [실험 43] Explanation Space 기반 min-zero/difference 입력 공간 진단
+  - 배경: `Explanation Space: A New Perspective into Time Series Interpretability` 논문은 ElectricDevices처럼 0의 의미가 중요한 데이터에서 z-normalize 이후 0 baseline 해석이 흔들릴 수 있음을 지적한다
+  - 목적: threshold 문제와 분리해서, 같은 ROCKET+kNN 판정기를 쓰되 입력 공간만 `time_z`, `minzero_z`, `difference_z`로 바꾸면 ElectricDevices/device-like family의 zero-F1/FP 문제가 완화되는지 확인
+  - 데이터 기준: 사용자의 원본 DB 해석을 유지하여 `original_repeated_normal` 구조에서 평가한다
+  - 실험 스크립트: `run_experiment_43_explanation_space_transforms.py`
+  - 공용 엔진 변경: `run_original_improvement_experiment.py`에 `preprocess_space`를 추가하여 기존 실험 기본값은 `time_z`로 유지하고, 43번만 min-zero/difference 변환을 적용
+  - 비교 후보: `time_z_rocket_256_knn3`, `minzero_z_rocket_256_knn3`, `difference_z_rocket_256_knn3`
+  - threshold 정책: 운영형 자동 threshold인 `count_cap_2pct`, `count_cap_3pct`, `adaptive_v0`, `family_guard_v1`
+  - 판단 기준: 전체 mean/median F1보다 ElectricDevices와 device-like family의 AUC-PR/oracle F1, zero-F1 count, mean FP, train exceed rate 변화에 집중
+  - 검증: `scratch/test_experiment_43_explanation_space.py`, `scratch/test_original_improvement_experiments.py`, py_compile 통과. 1 dataset smoke에서 3개 입력 공간 × 4 threshold = 12 rows 생성 확인
+  - 실행 준비: 기존 queue runner가 43번 등록 전 시작된 상태라, `rank_queue_exp43_watchdog` screen 세션을 추가하여 42번 이후 43번을 새 코드 runner로 이어받도록 설정
+- [ ] [실험 44] Classical embedding baselines: FFT/PCA/Wavelet
+  - 배경: `Time Series Embedding Methods for Classification Tasks: A Review`는 FFT, Wavelet, PCA 같은 classical embedding이 여러 시계열 분류 태스크에서 강한 기준선이며, 특히 전기/기계 시스템 계열에서 우선 평가할 가치가 있음을 시사한다
+  - 목적: threshold 문제와 분리해서, ROCKET이 아닌 classical embedding 자체가 train-normal kNN score의 분리력을 개선하는지 확인
+  - 데이터 기준: 원본 DB의 `original_repeated_normal` 구조를 유지한다
+  - 실험 스크립트: `run_experiment_44_classical_embedding_baselines.py`
+  - 공용 엔진 변경: `run_original_improvement_experiment.py`에 `classical_embedding_knn` score kind와 `fft_magnitude_features`, train-fit `pca_embedding_pair`, `haar_wavelet_features`를 추가
+  - 비교 후보: `fft_mag_16_knn3`, `fft_mag_32_knn3`, `pca_8_knn3`, `pca_16_knn3`, `haar_wavelet_16_knn3`, `haar_wavelet_32_knn3`
+  - threshold 정책: 운영형 자동 threshold인 `count_cap_2pct`, `count_cap_3pct`, `adaptive_v0`, `family_guard_v1`
+  - 판단 기준: 전체 F1뿐 아니라 ElectricDevices/device-like family의 AUC-PR/oracle F1, zero-F1 count, mean FP, train exceed rate가 ROCKET 계열 대비 개선되는지 확인
+  - 검증: `scratch/test_experiment_44_classical_embeddings.py`, `scratch/test_experiment_43_explanation_space.py`, `scratch/test_original_improvement_experiments.py`, py_compile 통과. 1 dataset smoke에서 6개 embedding config × 4 threshold = 24 rows 생성 확인
+  - 실행 준비: 큐 맨 뒤에 `experiment_44_classical_embedding_baselines` 추가. 기존 queue runner가 44번 등록 전 시작된 상태라, `rank_queue_exp44_watchdog` screen 세션을 추가하여 43번 이후 44번을 새 코드 runner로 이어받도록 설정
+- [ ] [실험 45-50] model_hard 대응 표현 공간 실험
+  - 배경: `model_hard` 218개, 특히 original/clean 양쪽에서 score 분리력이 낮은 핵심 후보는 threshold 조정만으로 해결하기 어렵다. 따라서 score representation 자체를 바꾸는 실험을 family별로 분리한다
+  - 조사 문서: `docs/model_hard_response_research_20260707.md`, `docs/time_series_imaging_research_20260707.md`
+  - 공용 엔진: `run_model_hard_research_experiments.py`
+  - 데이터 기준: 사용자의 원본 DB 해석을 유지하여 `original_repeated_normal` 구조에서 평가한다. 대상은 difficulty CSV의 `model_hard` subset과 family filter로 제한한다
+  - 실험 45: `experiment_45_model_hard_diagnostic_harness` - hard-core 20개에서 ROCKET, interval-quantile, FFT band score를 빠르게 비교하는 진단 harness
+  - 실험 46: `experiment_46_model_hard_interval_drcif_lite` - power/device family 13개에 raw/diff/periodogram interval quantile feature 적용
+  - 실험 47: `experiment_47_model_hard_frequency_rocket` - EthanolLevel, ScreenType, FordA/B, Earthquakes, Phoneme 등 32개에 FFT band와 frequency-decomposition ROCKET rank ensemble 적용
+  - 실험 48: `experiment_48_model_hard_shapelet_prototype` - outline/shape family 17개에 normal shapelet prototype distance 적용
+  - 실험 49: `experiment_49_model_hard_anomaly_injection` - train 수가 충분한 hard family 46개에 CARLA-style synthetic anomaly injection score 적용
+  - 실험 50: `experiment_50_model_hard_timeseries_imaging` - GASF, MTF, RP, spectrogram image transform + PCA/KNN smoke test를 86개 hard imaging 후보에 적용
+  - threshold 정책: 운영형 자동 threshold인 `count_cap_2pct`, `count_cap_3pct`, `adaptive_v0`, `family_guard_v1`
+  - 판단 기준: 전체 F1보다 family별 AUC-PR/oracle F1 개선, zero-F1 count 감소, mean FP 유지/감소를 우선한다
+  - 검증: py_compile 통과. 각 실험 dataset 1개 smoke 실행 통과 후 smoke 산출물은 `smoke_verified_20260707_113624` archive로 이동하여 full-run 결과와 혼동되지 않게 처리
+  - 실행 준비: 45-50을 기존 큐 뒤에 순서대로 추가한다. 기존 queue runner가 새 ID 등록 전 시작된 상태일 수 있으므로, 필요 시 기존 runner 종료 후 새 코드 runner가 이어받도록 watchdog/재시작으로 보강한다
+  - 2026-07-07 누락 방지 보강: 39/40에서 detail CSV 누락이 발견되어 `run_original_improvement_experiment.py`, `run_experiment_40_original_score_normalization_sweep.py`, `run_multi_aug_robust_experiment.py`, `run_model_hard_research_experiments.py`에 final detail CSV coverage check를 추가. 42-50 대기 실험은 실행 종료 시 실제 저장된 dataset 수를 expected target과 대조하고, 누락이 있으면 즉시 누락 dataset만 1회 보충 실행한다. 그래도 남으면 `*_missing_datasets.csv`를 남긴 뒤 큐는 계속 진행한다
+- [ ] [실험 81-84] 공식 aeon ROCKET 계열 feature extractor 재검증
+  - 배경: Exp79 Conv AE epoch sweep는 오류 수정 후 전체 재평가에서도 ROCKET 기준선보다 크게 약해 기각. 다음 개선축은 딥러닝 epoch 증가가 아니라 ROCKET 계열 표현력 자체를 업그레이드하는 방향으로 전환한다
+  - 공통 원칙: classifier는 사용하지 않고 공식 aeon transformer(`MultiRocket`, `HydraTransformer`)를 feature extractor로만 사용한다. 변환된 feature는 기존 운영 흐름과 동일하게 train-normal 기반 KNN/local-gap score 및 자동 threshold(`count_cap_*`, `family_guard_v1`)로 평가한다
+  - 실험 81: `experiment_81_aeon_multirocket_official_full` - 전체 1,117개에서 공식 MultiROCKET 1024/2048 kernel feature를 Exp28 간소화 구현과 구분하여 재검증
+  - 실험 82: `experiment_82_hydra_hard_family_subset` - HYDRA feature를 Phoneme, CricketZ, InlineSkate, GestureMidAirD3 우선 subset 84개에 적용
+  - 실험 83: `experiment_83_multirocket_hydra_hard339` - MultiROCKET+HYDRA concat feature를 Exp75 hard family 339개에서 먼저 평가
+  - 실험 84: `experiment_84_feature_pruning_operational_stability` - stable-tail feature pruning을 성능 상승보다 FP 감소와 train exceed 안정성 목적으로 평가
+  - 후순위: Arsenal은 성능 상한 확인용으로 의미가 있으나 운영 기본 모델로는 무거워 이번 큐에는 넣지 않는다
+  - 검증: aeon 1.5.0 설치 후 py_compile 통과, Exp81-84 각각 1 dataset smoke 실행 통과. Smoke CSV/log는 `smoke_20260709_*` archive로 이동하여 full-run 결과와 혼동되지 않게 처리

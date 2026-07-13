@@ -1,0 +1,3 @@
+method,alerts,tp,fp,precision
+Existing candidate set (Exp133 selected_indices),2644,1983,661,0.75
+Exp137 automated alert,2005,1691,314,0.8433915211970074

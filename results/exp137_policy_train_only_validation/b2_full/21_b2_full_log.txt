@@ -1,0 +1,141 @@
+Progress: [  10/1117] rows=10 errors=0
+Progress: [  20/1117] rows=20 errors=0
+Progress: [  30/1117] rows=30 errors=0
+Progress: [  40/1117] rows=40 errors=0
+Progress: [  50/1117] rows=50 errors=0
+Progress: [  60/1117] rows=60 errors=0
+Progress: [  70/1117] rows=70 errors=0
+Progress: [  80/1117] rows=80 errors=0
+Progress: [  90/1117] rows=90 errors=0
+Progress: [ 100/1117] rows=100 errors=0
+Progress: [ 110/1117] rows=110 errors=0
+Progress: [ 120/1117] rows=120 errors=0
+Progress: [ 130/1117] rows=130 errors=0
+Progress: [ 140/1117] rows=140 errors=0
+Progress: [ 150/1117] rows=150 errors=0
+Progress: [ 160/1117] rows=160 errors=0
+Progress: [ 170/1117] rows=170 errors=0
+Progress: [ 180/1117] rows=180 errors=0
+Progress: [ 190/1117] rows=190 errors=0
+Progress: [ 200/1117] rows=200 errors=0
+Progress: [ 210/1117] rows=210 errors=0
+Progress: [ 220/1117] rows=220 errors=0
+Progress: [ 230/1117] rows=230 errors=0
+Progress: [ 240/1117] rows=240 errors=0
+Progress: [ 250/1117] rows=250 errors=0
+Progress: [ 260/1117] rows=260 errors=0
+Progress: [ 270/1117] rows=270 errors=0
+Progress: [ 280/1117] rows=280 errors=0
+Progress: [ 290/1117] rows=290 errors=0
+Progress: [ 300/1117] rows=300 errors=0
+Progress: [ 310/1117] rows=310 errors=0
+Progress: [ 320/1117] rows=320 errors=0
+Progress: [ 330/1117] rows=330 errors=0
+Progress: [ 340/1117] rows=340 errors=0
+Progress: [ 350/1117] rows=350 errors=0
+Progress: [ 360/1117] rows=360 errors=0
+Progress: [ 370/1117] rows=370 errors=0
+Progress: [ 380/1117] rows=380 errors=0
+Progress: [ 390/1117] rows=390 errors=0
+Progress: [ 400/1117] rows=400 errors=0
+Progress: [ 410/1117] rows=410 errors=0
+Progress: [ 420/1117] rows=420 errors=0
+Progress: [ 430/1117] rows=430 errors=0
+Progress: [ 440/1117] rows=440 errors=0
+Progress: [ 450/1117] rows=450 errors=0
+Progress: [ 460/1117] rows=460 errors=0
+Progress: [ 470/1117] rows=470 errors=0
+Progress: [ 480/1117] rows=480 errors=0
+Progress: [ 490/1117] rows=490 errors=0
+Progress: [ 500/1117] rows=500 errors=0
+Progress: [ 510/1117] rows=510 errors=0
+Progress: [ 520/1117] rows=520 errors=0
+Progress: [ 530/1117] rows=530 errors=0
+Progress: [ 540/1117] rows=540 errors=0
+Progress: [ 550/1117] rows=550 errors=0
+Progress: [ 560/1117] rows=560 errors=0
+Progress: [ 570/1117] rows=570 errors=0
+Progress: [ 580/1117] rows=580 errors=0
+Progress: [ 590/1117] rows=590 errors=0
+Progress: [ 600/1117] rows=600 errors=0
+Progress: [ 610/1117] rows=610 errors=0
+Progress: [ 620/1117] rows=620 errors=0
+Progress: [ 630/1117] rows=630 errors=0
+Progress: [ 640/1117] rows=640 errors=0
+Progress: [ 650/1117] rows=650 errors=0
+Progress: [ 660/1117] rows=660 errors=0
+Progress: [ 670/1117] rows=670 errors=0
+Progress: [ 680/1117] rows=680 errors=0
+Progress: [ 690/1117] rows=690 errors=0
+Progress: [ 700/1117] rows=700 errors=0
+Progress: [ 710/1117] rows=710 errors=0
+Progress: [ 720/1117] rows=720 errors=0
+Progress: [ 730/1117] rows=730 errors=0
+Progress: [ 740/1117] rows=740 errors=0
+Progress: [ 750/1117] rows=750 errors=0
+Progress: [ 760/1117] rows=760 errors=0
+Progress: [ 770/1117] rows=770 errors=0
+Progress: [ 780/1117] rows=780 errors=0
+Progress: [ 790/1117] rows=790 errors=0
+Progress: [ 800/1117] rows=800 errors=0
+Progress: [ 810/1117] rows=810 errors=0
+Progress: [ 820/1117] rows=820 errors=0
+Progress: [ 830/1117] rows=830 errors=0
+Progress: [ 840/1117] rows=840 errors=0
+Progress: [ 850/1117] rows=850 errors=0
+Progress: [ 860/1117] rows=860 errors=0
+Progress: [ 870/1117] rows=870 errors=0
+Progress: [ 880/1117] rows=880 errors=0
+Progress: [ 890/1117] rows=890 errors=0
+Progress: [ 900/1117] rows=900 errors=0
+Progress: [ 910/1117] rows=910 errors=0
+Progress: [ 920/1117] rows=920 errors=0
+Progress: [ 930/1117] rows=930 errors=0
+Progress: [ 940/1117] rows=940 errors=0
+Progress: [ 950/1117] rows=950 errors=0
+Progress: [ 960/1117] rows=960 errors=0
+Progress: [ 970/1117] rows=970 errors=0
+Progress: [ 980/1117] rows=980 errors=0
+Progress: [ 990/1117] rows=990 errors=0
+Progress: [1000/1117] rows=1000 errors=0
+Progress: [1010/1117] rows=1010 errors=0
+Progress: [1020/1117] rows=1020 errors=0
+Progress: [1030/1117] rows=1030 errors=0
+Progress: [1040/1117] rows=1040 errors=0
+Progress: [1050/1117] rows=1050 errors=0
+Progress: [1060/1117] rows=1060 errors=0
+Progress: [1070/1117] rows=1070 errors=0
+Progress: [1080/1117] rows=1080 errors=0
+Progress: [1090/1117] rows=1090 errors=0
+Progress: [1100/1117] rows=1100 errors=0
+Progress: [1110/1117] rows=1110 errors=0
+Progress: [1117/1117] rows=1117 errors=0
+{
+  "b1_common_support_comparison": {
+    "available": true,
+    "common_support_datasets": 339,
+    "exact_lane_match_datasets": 339,
+    "mismatch_datasets": []
+  },
+  "combined_metric_scope": "human_assisted_diagnostic_only",
+  "datasets": 1117,
+  "errors": [],
+  "experiment_id": "experiment_141_family_neutral_full_coverage",
+  "hard_alerts": 2085,
+  "hard_changed_datasets": 44,
+  "hard_fp": 326,
+  "hard_precision": 0.8436450839328538,
+  "hard_tp": 1759,
+  "mean_hard_f1": 0.6059914693348503,
+  "priority_changed_datasets": 2,
+  "priority_review_candidates": 7,
+  "priority_review_fp": 1,
+  "priority_review_precision": 0.8571428571428571,
+  "priority_review_tp": 6,
+  "retrospective_only": true,
+  "standard_changed_datasets": 14,
+  "standard_review_candidates": 647,
+  "standard_review_fp": 344,
+  "standard_review_precision": 0.46831530139103555,
+  "standard_review_tp": 303
+}
