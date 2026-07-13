@@ -40,6 +40,13 @@ Observed results:
 - Budget policy validation tests: 6 passed.
 - Dashboard operational tests: 24 passed.
 
+Full scratch-suite result:
+
+- 128 passed, 1 failed.
+- The failing test is scratch/test_rank_queue_safety.py::test_reconcile_running_state_clears_dead_pid_without_touching_queue.
+- It fails in both the original workspace and this export because the test redirects only STATE_PATH and LOG_PATH while reconcile_running_state still reads the real completed Exp44 result and log from the shared DATA_DIR. Recovery therefore correctly removes the queued item for that real completed experiment, contrary to the test fixture's assumption.
+- This export does not change the runtime or rewrite the historical test fixture. The failure is recorded rather than hidden.
+
 ## Formatting Caveat
 
 The copied historical source and CSV artifacts contain pre-existing trailing whitespace and CRLF line endings. Running git diff --cached --check reported 141,949 formatting findings. These were not auto-rewritten because this repository is intended to preserve the source snapshot rather than to make a broad, unrelated formatting rewrite. This warning does not indicate DB inclusion, credential exposure, or Python syntax failure.

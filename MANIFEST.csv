@@ -1,6 +1,6 @@
 path,category,size_bytes,sha256,source_reference
 ".gitignore","handoff_document",220,"087b22e26e92f74bf7f954dcc9209b46038a20e9229fcaba1fbb5ccb330f2b1f","authored in public handoff repository"
-"EXPORT_AUDIT.md","handoff_document",2719,"704f20e63294ecf0dea285ca557f9b23135bf26c73915ff372664ab2878d7b95","authored in public handoff repository"
+"EXPORT_AUDIT.md","handoff_document",3378,"16196765d35353ad8cf26badee798d037daee51c777d13cfc64d09f6ceee3493","authored in public handoff repository"
 "GPT_REVIEW_PROMPT_KO.md","handoff_document",1938,"368448c5c9c0f65ed53173d24a49d35431bf990ab5026566fa81f92f4bfa4a12","authored in public handoff repository"
 "README.md","handoff_document",5770,"ee6474c5d3c82c7656824975f851872d2f5cca5ee7d9ac5299fdf3fd39509f13","authored in public handoff repository"
 "REPRODUCIBILITY.md","handoff_document",1892,"4ecf693a4de07f90439b221b56a3e87489b6a6c364f41bc03bd36623b3ec66e6","authored in public handoff repository"
