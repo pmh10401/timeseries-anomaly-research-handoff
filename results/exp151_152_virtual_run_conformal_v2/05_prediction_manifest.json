@@ -1,0 +1,13 @@
+{
+  "checkpoint_sha256": "ffa124238b8382bb9118a04bf1e82dce72e6dc622b6133f5e3dba36949d298af",
+  "contains_evaluation_metrics": false,
+  "contains_test_labels": false,
+  "dataset_count": 1117,
+  "evaluation_contract_sha256": "7393c476e9d33182398a3c51bcb69fbc03942ad4bb61c5defb20b69ebe0cdae4",
+  "exp151_prediction_file": "03_exp151_current_source_predictions.jsonl",
+  "exp151_prediction_sha256": "0c53c0f09252fbfd25ad108fc69309ee1cc67c7f23bc7c22bfc072cecc02b11a",
+  "exp152_prediction_file": "04_exp152_b2_source_predictions.jsonl",
+  "exp152_prediction_sha256": "9684f6bae6e561535f190969a4c71b1f258c97d0b7cf9899b8d9147a74c13499",
+  "frozen_at": "2026-07-14 10:49:56",
+  "rows_per_variant": 4468
+}
