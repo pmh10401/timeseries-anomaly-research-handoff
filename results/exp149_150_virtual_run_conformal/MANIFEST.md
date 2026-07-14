@@ -1,0 +1,16 @@
+# Exp149/150 manifest
+
+All files are retrospective counterfactual virtual wafer-run benchmark artifacts. Hard alert metrics are autonomous; combined F1 is human-assisted diagnostic only.
+
+- `00_preregistration.md`: `8f31761b9271e1d6b5c7fb9327c73311685683e9b2f2b251b338ee0d1f9e3957`
+- `02_virtual_run_grain_audit.csv`: `b50d025b5b9528157e2048f3fdc8881ded827bd9baa6040aec1b9a7a148af94e`
+- `03_exp149_current_source_results.csv`: `5924365bde2dc8161f60c1da28fa0180a3527d863af7e010121fe57ea441960e`
+- `04_exp149_current_source_summary.csv`: `306939ea68e8deee978fb57ec0c33ec6e3fe725d8618c99425cfbd1e5ba60e05`
+- `05_exp149_current_source_summary.md`: `5b935eb13857902ed70b29175a88398bdf425c41f915a3d71482d25dc31b91bb`
+- `06_exp150_b2_source_results.csv`: `f88d075720d4049e691010693258d4d4dd30a3e79211f0222b2b1ee584fe286e`
+- `07_exp150_b2_source_summary.csv`: `673e75eaaf604504c7cbe54319d8364fe71272f0e51506c5b4cce260953425a7`
+- `08_exp150_b2_source_summary.md`: `c744712fb2548d1ef2e46e94674bdac9dd751980f1dd1a3ec85ace73831586cc`
+- `09_alpha_sensitivity_comparison.csv`: `7ef63981ee4f1e57f33ec3d3b4c4cfe84060fd3c6151dfbe30d3b0120430093c`
+- `10_dataset_level_candidate_diff.csv`: `596f6f5e396c5af4459e4b8319d20eb1038953993ba20beefead3923720e1845`
+- `BLOCKER_REPORT_VIRTUAL_RUN.md`: `170fac2c6d1f6ee3dd60b466c4a18790390b3b7d590c7126db0a12313121a186`
+- `prediction_checkpoint.jsonl`: `98e37ff44c6ade0faa13b7b1b115fb349716a7bd066518f85873f65b39214271`
