@@ -1,0 +1,40 @@
+{
+  "alpha_selection_rule": "sensitivity_only_no_alpha_selected",
+  "alphas": [
+    0.005,
+    0.01,
+    0.02,
+    0.05
+  ],
+  "b2_manifest_path": "/Users/minho/Documents/timesries project/outputs/exp137_policy_train_only_validation/b2_full/16_b2_full_coverage_source_manifest.csv",
+  "b2_manifest_sha256": "5139c80a6083633824b404057a5a9e412f62cee13d3bb76c58c8ba70cf2caf3e",
+  "baseline_path": "/Users/minho/Documents/Dataset/experiment_137_operational_triage_results.csv",
+  "baseline_sha256": "942e2f5faac41364a0e91fd9dad7c3e45734cd765a080f31d9d149950826735d",
+  "block_b_neighbors": 3,
+  "block_b_rate": 0.015,
+  "block_c_rate": 0.01,
+  "core_sha256": "d62846a6dd499f5d5697ce2b0fa1b724af2dd774086f321bbf4336d78c2fe38b",
+  "database_path": "/Users/minho/Documents/Dataset/univariate_ts.db",
+  "database_sha256": "8458e6787031afba104a2c93b6b578dacf183f9b85c5252938ec8e092673ef3c",
+  "dataset_count": 1117,
+  "dataset_list_sha256": "3cd3c13f0128f2d85c4d76f94fd102e1bbaa6e931a79a576742e6a42b1f71fe7",
+  "end_to_end_configuration_provenance_verified": false,
+  "evaluation_requires_frozen_prediction_hash": true,
+  "exp87_path": "/Users/minho/Documents/Dataset/experiment_87_exp84_index_diagnostics_results.csv",
+  "exp87_sha256": "78c18458a8a2eae7676ff688f7deac01281270c05bf9d17682b6e7ad388fc0d5",
+  "experiment_ids": [
+    "experiment_151_virtual_run_conformal_policy_v2",
+    "experiment_152_virtual_run_conformal_policy_v2"
+  ],
+  "git_commit": "05c471fd650f34ca641944d7524f6484a84f4fb2",
+  "hard_metric_scope": "autonomous_hard_alert_only",
+  "n_train_lt5_datasets": 162,
+  "output_dir": "outputs/exp151_152_virtual_run_conformal_v2",
+  "prediction_label_access": "forbidden",
+  "prospective_validated": false,
+  "required_source_agreement": 2,
+  "review_metric_scope": "human_assisted_diagnostic_only",
+  "scope": "retrospective counterfactual virtual wafer-run benchmark",
+  "script_sha256": "667449980f5860796604c2b5639277c9d096fac1c4bc534346f4752521e83516",
+  "seed": 20260717
+}
