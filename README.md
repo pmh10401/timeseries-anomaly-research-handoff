@@ -18,7 +18,8 @@
 2. [Exp137 인계 문서](results/exp137_gpt_handoff_20260713/README_START_HERE.md)와 [운영 흐름](results/exp137_gpt_handoff_20260713/EXPERIMENT_137_FLOW.md)을 읽습니다.
 3. [Exp137 summary CSV](results/exp137_gpt_handoff_20260713/results/experiment_137_operational_triage_summary.csv)와 [데이터셋별 결과](results/exp137_gpt_handoff_20260713/results/experiment_137_operational_triage_results.csv)를 검토합니다.
 4. [Policy validation 결과](results/exp137_policy_train_only_validation/)에서 B2, Exp143, C0, D1a를 구분해 확인합니다.
-5. GPT에 전달할 때는 [GPT_REVIEW_PROMPT_KO.md](GPT_REVIEW_PROMPT_KO.md)와 필요한 CSV를 함께 사용합니다.
+5. 가상 wafer-run 가정으로 후속 TRAIN-only 정책 검증을 진행할 때는 [Exp145/148 재개 사전등록](docs/source/experiments/exp145_exp148_virtual_wafer_run_restart_preregistration.md)을 먼저 읽습니다.
+6. GPT에 전달할 때는 [GPT_REVIEW_PROMPT_KO.md](GPT_REVIEW_PROMPT_KO.md)와 필요한 CSV를 함께 사용합니다.
 
 ## 현재 핵심 증거
 
